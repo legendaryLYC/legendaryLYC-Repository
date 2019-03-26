@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.AdvertisingManagementMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.AdvertisingManagement" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="location_code" property="locationCode" jdbcType="INTEGER" />
+    <result column="advert_url" property="advertUrl" jdbcType="VARCHAR" />
+    <result column="term" property="term" jdbcType="TIMESTAMP" />
+    <result column="advert_fee" property="advertFee" jdbcType="DECIMAL" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="is_selected" property="isSelected" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    advertising_management.id,
+    advertising_management.title,
+    advertising_management.picture_url,
+    advertising_management.location_code,
+    advertising_management.advert_url,
+    advertising_management.content,
+    advertising_management.advert_fee,
+    advertising_management.creat_time,
+    advertising_management.term,
+    advertising_management.remark,
+    advertising_management.username,
+    advertising_management.is_selected
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from advertising_management
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectSelectedLocations" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dic_advertising_location
+    INNER JOIN advertising_management ON dic_advertising_location.`code` = advertising_management.location_code
+    where is_selected = 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from advertising_management
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.background.entity.AdvertisingManagement" >
+    insert into advertising_management (id, picture_url, title, 
+      content, location_code, advert_url, 
+      term, advert_fee, remark, 
+      creat_time, username, is_selected)
+    values (#{id,jdbcType=BIGINT}, #{pictureUrl,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{locationCode,jdbcType=INTEGER}, #{advertUrl,jdbcType=VARCHAR}, 
+      #{term,jdbcType=TIMESTAMP}, #{advertFee,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{creatTime,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, #{isSelected,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.background.entity.AdvertisingManagement" >
+    insert into advertising_management
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="locationCode != null" >
+        location_code,
+      </if>
+      <if test="advertUrl != null" >
+        advert_url,
+      </if>
+      <if test="term != null" >
+        term,
+      </if>
+      <if test="advertFee != null" >
+        advert_fee,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="isSelected != null" >
+        is_selected,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pictureUrl != null" >
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCode != null" >
+        #{locationCode,jdbcType=INTEGER},
+      </if>
+      <if test="advertUrl != null" >
+        #{advertUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null" >
+        #{term,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertFee != null" >
+        #{advertFee,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="isSelected != null" >
+        #{isSelected,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.AdvertisingManagement" >
+    update advertising_management
+    <set >
+      <if test="pictureUrl != null" >
+        picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="locationCode != null" >
+        location_code = #{locationCode,jdbcType=INTEGER},
+      </if>
+      <if test="advertUrl != null" >
+        advert_url = #{advertUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null" >
+        term = #{term,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advertFee != null" >
+        advert_fee = #{advertFee,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="isSelected != null" >
+        is_selected = #{isSelected,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.AdvertisingManagement" >
+    update advertising_management
+    set picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      location_code = #{locationCode,jdbcType=INTEGER},
+      advert_url = #{advertUrl,jdbcType=VARCHAR},
+      term = #{term,jdbcType=TIMESTAMP},
+      advert_fee = #{advertFee,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      username = #{username,jdbcType=VARCHAR},
+      is_selected = #{isSelected,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectAll"  resultMap="BaseResultMap"  parameterType="com.design.background.entity.AdvertisingManagement" >
+    select 
+    <include refid="Base_Column_List" />
+    from advertising_management
+    where
+    1 = 1
+    	<if test="id != null" >
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if  test=" locationCode != null" >
+        and location_code = #{locationCode,jdbcType=INTEGER}
+      </if>
+      <if test="title != '' and title != null" >
+        and title =  #{title,jdbcType=VARCHAR}
+      </if> 
+      <if test="username != '' and username != null" >
+        and username like  '%${username}%'
+      </if>
+  </select>
+
+  <update id="unselectedAdvertisings" parameterType="java.lang.Integer" >
+    update advertising_management
+    set is_selected = 0
+    where location_code = #{locationCode,jdbcType=INTEGER}
+  </update>
+</mapper>

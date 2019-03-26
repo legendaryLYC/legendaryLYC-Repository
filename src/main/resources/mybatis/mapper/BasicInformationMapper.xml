@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.BasicInformationMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.BasicInformation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="web_url" property="webUrl" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="title_img" property="titleImg" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="icp_information" property="icpInformation" jdbcType="VARCHAR" />
+    <result column="wechat_img" property="wechatImg" jdbcType="VARCHAR" />
+    <result column="email_address" property="emailAddress" jdbcType="VARCHAR" />
+    <result column="is_selected" property="isSelected" jdbcType="INTEGER" />
+    <result column="foot_img" property="footImg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, web_url, title, title_img, phone, icp_information, wechat_img, email_address, is_selected, foot_img
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from basic_information
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectInformationlist" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from basic_information
+  </select>
+  
+  <select id="selectInformationByname" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from basic_information
+    where title like '%${titlename}%'
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from basic_information
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.background.entity.BasicInformation" >
+    insert into basic_information (id, web_url, title, 
+      title_img, phone, icp_information, 
+      wechat_img, email_address, is_selected, foot_img)
+    values (#{id,jdbcType=BIGINT}, #{webUrl,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{titleImg,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{icpInformation,jdbcType=VARCHAR}, 
+      #{wechatImg,jdbcType=VARCHAR}, #{emailAddress,jdbcType=VARCHAR}, #{is_selected,jdbcType=INTEGER},
+      #{footImg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.background.entity.BasicInformation" >
+    insert into basic_information
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="webUrl != null" >
+        web_url,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="titleImg != null" >
+        title_img,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="icpInformation != null" >
+        icp_information,
+      </if>
+      <if test="wechatImg != null" >
+        wechat_img,
+      </if>
+      <if test="emailAddress != null" >
+        email_address,
+      </if>
+      <if test="isSelected != null" >
+        is_selected,
+      </if>
+      <if test="footImg != null" >
+        foot_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="webUrl != null" >
+        #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="titleImg != null" >
+        #{titleImg,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="icpInformation != null" >
+        #{icpInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatImg != null" >
+        #{wechatImg,jdbcType=VARCHAR},
+      </if>
+      <if test="emailAddress != null" >
+        #{emailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="isSelected != null" >
+        #{isSelected,jdbcType=INTEGER},
+      </if>
+      <if test="footImg != null" >
+        #{footImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.BasicInformation" >
+    update basic_information
+    <set >
+      <if test="webUrl != null" >
+        web_url = #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="titleImg != null" >
+        title_img = #{titleImg,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="icpInformation != null" >
+        icp_information = #{icpInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatImg != null" >
+        wechat_img = #{wechatImg,jdbcType=VARCHAR},
+      </if>
+      <if test="emailAddress != null" >
+        email_address = #{emailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="isSelected != null" >
+        is_selected = #{isSelected,jdbcType=INTEGER},
+      </if>
+      <if test="footImg != null" >
+        foot_img = #{footImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.BasicInformation" >
+    update basic_information
+    set web_url = #{webUrl,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      title_img = #{titleImg,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      icp_information = #{icpInformation,jdbcType=VARCHAR},
+      wechat_img = #{wechatImg,jdbcType=VARCHAR},
+      email_address = #{emailAddress,jdbcType=VARCHAR},
+      is_selected = #{isSelected,jdbcType=INTEGER},
+      foot_img = #{footImg,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="cleanSelected">
+    update basic_information
+    set is_selected = 0
+  </update>
+  <select id="selectSelectedSetting" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from basic_information
+    where is_selected = 1
+  </select>
+</mapper>

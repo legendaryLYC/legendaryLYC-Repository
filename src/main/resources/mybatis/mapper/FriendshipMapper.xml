@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.FriendshipMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.Friendship" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="link" property="link" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, link
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from friendship_link
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectList" resultMap="BaseResultMap" >
+SELECT
+friendship_link.id,
+friendship_link.`name`,
+friendship_link.link
+FROM
+friendship_link
+  </select>
+  <delete id="deleteList">
+delete from friendship_link
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <select id="selectbyLink" resultMap="BaseResultMap" >
+SELECT
+    <include refid="Base_Column_List" />
+FROM
+friendship_link
+where
+name = #{name,jdbcType=VARCHAR}
+or link = #{link,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from friendship_link
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.background.entity.Friendship" >
+    insert into friendship_link (name, link
+      )
+    values (#{name,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.background.entity.Friendship" >
+    insert into friendship_link
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="link != null" >
+        link,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null" >
+        #{link,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.Friendship" >
+    update friendship_link
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null" >
+        link = #{link,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.Friendship" >
+    update friendship_link
+    set name = #{name,jdbcType=VARCHAR},
+      link = #{link,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

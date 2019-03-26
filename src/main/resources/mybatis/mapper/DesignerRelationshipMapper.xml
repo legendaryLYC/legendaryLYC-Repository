@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.DesignerRelationshipMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.DesignerRelationship" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="type_code" property="typeCode" jdbcType="INTEGER" />
+    <result column="is_selected" property="isSelected" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+    <resultMap id="BaseResultMap2" type="com.design.background.entity.Application">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="project_id" property="projectId" jdbcType="BIGINT" />
+        <result column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="type_code" property="typeCode" jdbcType="INTEGER" />
+        <result column="is_selected" property="isSelected" jdbcType="INTEGER" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="tel" property="tel" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="MyProjectResultMap" type="com.design.background.model.MyProjectModel" >
+        <result column="id" property="id" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="stage" property="stage" jdbcType="VARCHAR" />
+        <result column="deadline" property="deadline" jdbcType="VARCHAR" />
+        <result column="is_selected" property="isSelected" jdbcType="INTEGER" />
+        <result column="stageCode" property="stageCode" jdbcType="INTEGER" />
+        <result column="reviewDescription" property="stageReview" jdbcType="VARCHAR" />
+        <result column="tel" property="tel" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="ResultMapWithTenderProject" type="com.design.background.model.StatisticalSearchUserBalanceModel" >
+     <result column="name" property="name" jdbcType="VARCHAR" />
+     <result column="num" property="num" jdbcType="INTEGER" />
+   </resultMap>  
+   <resultMap id="FormResultMap" type="com.design.background.form.DesignerRelationshipForm" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+	    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+	    <result column="user_id" property="userId" jdbcType="BIGINT" />
+	    <result column="type_code" property="typeCode" jdbcType="INTEGER" />
+	    <result column="is_selected" property="isSelected" jdbcType="INTEGER" />
+	    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="projectName" property="projectName" jdbcType="VARCHAR" />
+        <result column="userName" property="userName" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+    </resultMap>
+  <sql id="Base_Column_List" >
+    id, project_id, user_id, type_code, is_selected, create_time, update_time
+  </sql>
+  <sql id="Form_Column_List" >
+    designer_relationship.project_id,
+	designer_relationship.user_id,
+	designer_relationship.type_code,
+	designer_relationship.is_selected,
+	designer_relationship.create_time,
+	designer_relationship.update_time,
+	designer_relationship.id,
+	dic_project_component.description AS type,
+	leading_user.username AS userName,
+	project_detail.`name` AS projectName
+  </sql>
+  <sql id="My_Column_List">
+        designer_relationship.is_selected as is_selected,
+        project_detail.id as id,
+        project_detail.`name` as name,
+        dic_project_stage.description as stage,
+        dic_project_type.description as type,
+        dic_project_status.description as `status`,
+        project_detail.registration_deadline as deadline,
+        dic_review_status.description as reviewDescription,
+        project_detail.stage_code as stageCode,
+        leading_user.tel as tel
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from designer_relationship
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectJoinStatus" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from designer_relationship
+    where user_id = #{userId,jdbcType=BIGINT}
+    and project_id = #{projectId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from designer_relationship
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="deleteByUserIdAndProjectId">
+    delete from designer_relationship
+    where user_id = #{userId,jdbcType=BIGINT}
+    and project_id = #{projectId,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.design.background.entity.DesignerRelationship" >
+    insert into designer_relationship (id, project_id, user_id, 
+      type_code, is_selected, create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{typeCode,jdbcType=INTEGER}, #{isSelected,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <select id="selectApplication" resultMap="BaseResultMap2" >
+    select
+    designer_relationship.id,designer_relationship.project_id,designer_relationship.user_id,designer_relationship.type_code,designer_relationship.is_selected,designer_relationship.create_time,designer_relationship.update_time,
+    dic_project_component.description,leading_user.username,leading_user.tel
+    from designer_relationship
+    inner join leading_user on designer_relationship.user_id = leading_user.id
+    inner join dic_project_component on designer_relationship.type_code = dic_project_component.code
+    inner join project_detail on designer_relationship.project_id = project_detail.id
+    where designer_relationship.project_id = #{projectId,jdbcType=BIGINT}
+    and designer_relationship.is_selected = 0
+  </select>
+
+  <select id="selectAccept" resultMap="BaseResultMap2" >
+    select
+    designer_relationship.id,designer_relationship.project_id,designer_relationship.user_id,designer_relationship.type_code,designer_relationship.is_selected,designer_relationship.create_time,designer_relationship.update_time,
+    dic_project_component.description,leading_user.username,leading_user.tel
+    from designer_relationship
+    inner join leading_user on designer_relationship.user_id = leading_user.id
+    inner join dic_project_component on designer_relationship.type_code = dic_project_component.code
+    inner join project_detail on designer_relationship.project_id = project_detail.id
+    where designer_relationship.project_id = #{projectId,jdbcType=BIGINT}
+      and (designer_relationship.is_selected = 1 or designer_relationship.is_selected = 3)
+  </select>
+
+  <update id="updateAccept">
+    update designer_relationship
+    set
+      is_selected = '1'
+    where designer_relationship.project_id = #{projectId,jdbcType=BIGINT}
+    and designer_relationship.user_id = #{userId,jdbcType=BIGINT}
+  </update>
+
+    <update id="updateRefuse">
+    update designer_relationship
+    set
+      is_selected = '2'
+    where designer_relationship.project_id = #{projectId,jdbcType=BIGINT}
+    and designer_relationship.user_id = #{userId,jdbcType=BIGINT}
+  </update>
+
+  <insert id="insertSelective" parameterType="com.design.background.entity.DesignerRelationship" >
+    insert into designer_relationship
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="typeCode != null" >
+        type_code,
+      </if>
+      <if test="isSelected != null" >
+        is_selected,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="typeCode != null" >
+        #{typeCode,jdbcType=INTEGER},
+      </if>
+      <if test="isSelected != null" >
+        #{isSelected,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.DesignerRelationship" >
+    update designer_relationship
+    <set >
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="typeCode != null" >
+        type_code = #{typeCode,jdbcType=INTEGER},
+      </if>
+      <if test="isSelected != null" >
+        is_selected = #{isSelected,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.DesignerRelationship" >
+    update designer_relationship
+    set project_id = #{projectId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      type_code = #{typeCode,jdbcType=INTEGER},
+      is_selected = #{isSelected,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="isSelected" resultType="java.lang.Integer" parameterType="com.design.background.entity.DesignerRelationship" >
+    select 
+    	count(*)
+    from designer_relationship
+    <where>
+		<if test="record.projectId != null " >
+	        project_id = #{record.projectId}
+	    </if>
+	    <if test="record.typeCode != null " >
+	        and type_code = #{record.typeCode}
+	    </if>
+	    <if test="record.isSelected != null " >
+	        and (is_selected = 1 or is_selected = 3)
+	    </if>
+        <if test="record.createTime != null" >
+            and create_time = #{record.createTime}
+        </if>
+        <if test="record.updateTime != null" >
+            and update_time = #{record.updateTime}
+        </if>
+        <if test="record.userId != null" >
+            and user_id = #{record.userId}
+        </if>
+	</where>
+  </select>
+    <select id="selectedDesigner" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from designer_relationship
+        where project_id = #{projectId}
+    </select>
+
+  <select id="selectByUserId" resultMap="MyProjectResultMap">
+    SELECT
+    <include refid="My_Column_List" />
+    FROM
+	designer_relationship
+	INNER JOIN project_detail ON designer_relationship.project_id = project_detail.id
+	INNER JOIN dic_project_type ON project_detail.type_code = dic_project_type.`code`
+	INNER JOIN dic_project_status ON project_detail.process_code = dic_project_status.`code`
+	INNER JOIN dic_project_stage ON project_detail.stage_code = dic_project_stage.`code`
+    INNER JOIN leading_user ON project_detail.user_id = leading_user.id
+    LEFT JOIN project_phase_audit
+      ON (project_detail.id = project_phase_audit.project_id and project_detail.stage_code = project_phase_audit.stage_code)
+    LEFT JOIN dic_review_status ON project_phase_audit.review_code = dic_review_status.`code`
+	where designer_relationship.user_id = #{project.userId,jdbcType=BIGINT}
+	and (is_selected = "2" or is_selected = "1" or is_selected = "3" or (is_selected = "0" and project_detail.process_code = "1004"))
+	<if test="project.typeCode != null and project.typeCode != ''" >
+		and project_detail.type_code = #{project.typeCode}
+	</if>
+	<if test="project.processCode != null and project.processCode != ''" >
+		and project_detail.process_code = #{project.processCode}
+	</if>
+	<if test="project.name != null and project.name != ''" >
+		and project_detail.name like '%${project.name}%'
+	</if>
+	order by designer_relationship.create_time desc
+  </select>
+  
+  
+      <select id="selectStatisticalTenderTopDesign" resultMap="ResultMapWithTenderProject">
+		SELECT
+		leading_user.username AS 'name',
+		count(1)  AS 'num'
+		FROM
+		designer_relationship
+		INNER JOIN leading_user ON designer_relationship.user_id = leading_user.id
+		GROUP BY
+		leading_user.username
+		ORDER by num desc
+		LIMIT 10
+  		</select>
+  	  <select id="selectStatisticalTenderTopProject" resultMap="ResultMapWithTenderProject">
+		SELECT
+		project_detail.`name` AS 'name',
+		Count(1) AS num
+		FROM
+		designer_relationship
+		INNER JOIN project_detail ON designer_relationship.project_id = project_detail.id
+		GROUP BY project_detail.`name`
+		ORDER by num desc
+		LIMIT 10
+
+  		</select>
+  	<!-- 该方法传7为上星期一，传1为上星期天 -->
+      <select id="selectStatisticalTenderLastweek"  resultType="java.lang.Integer" parameterType="java.lang.Integer"> 
+       SELECT COUNT(1) AS num
+		FROM designer_relationship      
+		WHERE    ( DATE(DATE_SUB(SUBDATE(CURDATE(),DATE_FORMAT(CURDATE(),'%w')-1), INTERVAL #{lastIndex,jdbcType=INTEGER} DAY)) <![CDATA[ <= ]]> create_time AND create_time <![CDATA[ <= ]]> DATE(DATE_SUB(SUBDATE(CURDATE(),DATE_FORMAT(CURDATE(),'%w')-1), INTERVAL #{lastIndex,jdbcType=INTEGER} - 1 DAY)) )
+  	</select>
+  		<!-- 该方法传0为这星期一，传6为这星期天 -->
+  	<select id="selectStatisticalTenderThisweek" resultType="java.lang.Integer" parameterType="java.lang.Integer"> 
+       SELECT COUNT(1) AS num
+		FROM designer_relationship      
+		WHERE    (DATE(DATE_ADD(SUBDATE(CURDATE(),DATE_FORMAT(CURDATE(),'%w')-1), INTERVAL #{thisIndex,jdbcType=INTEGER} DAY)) <![CDATA[ <= ]]> create_time AND create_time <![CDATA[ <= ]]> DATE(DATE_ADD(SUBDATE(CURDATE(),DATE_FORMAT(CURDATE(),'%w')-1), INTERVAL #{thisIndex,jdbcType=INTEGER} + 1 DAY)) )
+		</select>
+  		<!-- 该方法传1为上个月，传0为本月 -->
+      <select id="selectStatisticalTenderByMonth" resultType="java.lang.Integer" parameterType="java.lang.Integer"> 
+		SELECT
+		count(1) AS num
+		FROM
+		designer_relationship
+		WHERE
+		 date_add(curdate()-day(curdate())+1,interval -#{monthIndex,jdbcType=INTEGER}  month)  <![CDATA[ <= ]]> designer_relationship.create_time AND designer_relationship.create_time <![CDATA[ <= ]]> last_day(date_sub(now(),interval #{monthIndex,jdbcType=INTEGER} month))
+  	</select>
+    <update id = "resetLeader">
+    update designer_relationship
+    set is_selected = 1
+    where
+    project_id = #{projectId} and is_selected != 2
+    </update>
+    <update id = "updateLeader">
+    update designer_relationship
+    set is_selected = 3
+       where
+    project_id = #{projectId} and user_id = #{userId}
+    </update>
+    <select id = "selectCountByProjectId" resultType="java.lang.Integer">
+    select count(*)
+    from designer_relationship
+    where project_id = #{projectId} and is_selected = 3
+    </select>
+  	<select id="selectDesignersByProjectId" resultMap="FormResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Form_Column_List" />
+    from designer_relationship
+		INNER JOIN dic_project_component ON designer_relationship.type_code = dic_project_component.`code`
+		INNER JOIN leading_user ON designer_relationship.user_id = leading_user.id
+		INNER JOIN project_detail ON designer_relationship.project_id = project_detail.id
+    where designer_relationship.project_id = #{projectId}
+  </select>
+  <select id="selectTypesByProjectId" resultType="java.lang.Integer" parameterType="java.lang.Long" >
+    select 
+    	type_code
+    from designer_relationship
+    where project_id = #{projectId} and ( is_selected = 1 or is_selected = 3)
+  </select>
+  <update id="refuseSameTypeDesigners">
+  update designer_relationship
+  set is_selected = 2
+  where project_id = #{projectId} and type_code = #{typeCode}
+  </update>
+  <select id="selectDesignersByProjectIdAndTypeCode" resultMap="BaseResultMap2">
+   select
+    designer_relationship.id,designer_relationship.project_id,designer_relationship.user_id,designer_relationship.type_code,designer_relationship.is_selected,designer_relationship.create_time,designer_relationship.update_time,
+    dic_project_component.description,leading_user.username,leading_user.tel
+    from designer_relationship
+    inner join leading_user on designer_relationship.user_id = leading_user.id
+    inner join dic_project_component on designer_relationship.type_code = dic_project_component.code
+    inner join project_detail on designer_relationship.project_id = project_detail.id
+    where designer_relationship.project_id = #{projectId,jdbcType=BIGINT}
+    and designer_relationship.type_code = #{typeCode}
+  </select>
+  <select id="selectDesignerByProjectIdAndUserId" resultMap="BaseResultMap2">
+    select
+    designer_relationship.id,designer_relationship.project_id,designer_relationship.user_id,designer_relationship.type_code,designer_relationship.is_selected,designer_relationship.create_time,designer_relationship.update_time,
+    dic_project_component.description,leading_user.username,leading_user.tel
+    from designer_relationship
+    inner join leading_user on designer_relationship.user_id = leading_user.id
+    inner join dic_project_component on designer_relationship.type_code = dic_project_component.code
+    inner join project_detail on designer_relationship.project_id = project_detail.id
+    where designer_relationship.project_id = #{projectId,jdbcType=BIGINT}
+    and designer_relationship.user_id = #{userId}
+  </select>
+</mapper>

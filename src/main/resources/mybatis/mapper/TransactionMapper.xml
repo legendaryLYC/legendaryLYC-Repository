@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.TransactionMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.NewTransaction" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="name" property="projectName" jdbcType="VARCHAR" />
+    <result column="username" property="userName" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="com.design.background.form.TransactionForm" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <!--<result column="name" property="name" jdbcType="VARCHAR" />-->
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, project_id, user_id, content, creat_time, money, username, name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from transaction
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectTran" resultMap="BaseResultMap2">
+  SELECT
+	design.`transaction`.id,
+	design.`transaction`.project_id,
+	design.`transaction`.user_id,
+	design.`transaction`.content,
+	design.`transaction`.creat_time,
+	design.`transaction`.money
+	FROM
+	design.`transaction`
+	where design.`transaction`.user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <select id="selectRecord" resultMap="BaseResultMap">
+SELECT
+`transaction`.id,
+`transaction`.project_id,
+`transaction`.user_id,
+`transaction`.content,
+`transaction`.creat_time,
+`transaction`.money,
+project_detail.`name`,
+leading_user.username
+FROM
+`transaction`
+left JOIN project_detail ON `transaction`.project_id = project_detail.id
+left JOIN leading_user ON `transaction`.user_id = leading_user.id
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from transaction
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.background.entity.Transaction" >
+    insert into transaction (id, project_id, user_id, 
+      content, creat_time, money
+      )
+    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, #{money,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.background.entity.Transaction" >
+    insert into transaction
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.Transaction" >
+    update transaction
+    <set >
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.Transaction" >
+    update transaction
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      money = #{money,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

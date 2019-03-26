@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.NotificationViewMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.NotificationView" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="message_id" property="messageId" jdbcType="BIGINT" />
+    <result column="read_time" property="readTime" jdbcType="DATE" />
+  </resultMap>
+  <resultMap id="MyResultMap" type="com.design.background.entity.NotificationView" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="message_id" property="messageId" jdbcType="BIGINT" />
+    <result column="read_time" property="readTime" jdbcType="DATE" />
+    
+    <result column="accept_user" property="acceptUser" jdbcType="VARCHAR" />
+    <result column="notify_type" property="notifyType" jdbcType="VARCHAR" />
+    <result column="sender" property="sender" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="isAll" property="isall" jdbcType="INTEGER" />
+    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, message_id, read_time
+  </sql>
+  <sql id="Message_Column_List" >
+   notification_manage.accept_user,
+notification_manage.notify_type,
+notification_manage.sender,
+notification_manage.title,
+notification_manage.message,
+notification_manage.creat_time,
+notification_manage.isAll,
+notification_view.id,
+notification_view.user_id,
+notification_view.message_id,
+notification_view.read_time
+  </sql>
+
+	<select id="selectByUserid" resultMap="MyResultMap" parameterType="com.design.background.entity.NotificationViewproject">
+		SELECT
+		<include refid="Message_Column_List" />
+		FROM
+		notification_manage
+		INNER JOIN notification_view ON notification_view.message_id = notification_manage.id
+		where user_id = #{userid,jdbcType=BIGINT}
+	</select>
+
+
+    <select id="selectByUseridAndTime" resultMap="MyResultMap">
+      SELECT
+      <include refid="Message_Column_List" />
+      FROM
+      notification_manage
+      INNER JOIN notification_view ON notification_view.message_id = notification_manage.id
+      where user_id = #{userid,jdbcType=BIGINT}
+      <![CDATA[ and creat_time >= #{date} ]]>
+    </select>
+	
+	<select id="selectreadedMessageBymessageId" resultMap="MyResultMap" parameterType="com.design.background.entity.NotificationViewproject">
+		SELECT
+		<include refid="Message_Column_List" />
+		FROM
+		notification_manage
+		INNER JOIN notification_view ON notification_view.message_id = notification_manage.id
+		where message_id = #{messageid,jdbcType=BIGINT}
+	</select>
+	
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from notification_view
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from notification_view
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <delete id="deleteBymessageid" parameterType="java.lang.Long" >
+    delete from notification_view
+    where message_id = #{messageid,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="com.design.background.entity.NotificationView" >
+    insert into notification_view (id, user_id, message_id, 
+      read_time)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{messageId,jdbcType=BIGINT}, 
+      #{readTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.background.entity.NotificationView" >
+    insert into notification_view
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="messageId != null" >
+        message_id,
+      </if>
+      <if test="readTime != null" >
+        read_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="messageId != null" >
+        #{messageId,jdbcType=BIGINT},
+      </if>
+      <if test="readTime != null" >
+        #{readTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.NotificationView" >
+    update notification_view
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="messageId != null" >
+        message_id = #{messageId,jdbcType=BIGINT},
+      </if>
+      <if test="readTime != null" >
+        read_time = #{readTime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.NotificationView" >
+    update notification_view
+    set user_id = #{userId,jdbcType=BIGINT},
+      message_id = #{messageId,jdbcType=BIGINT},
+      read_time = #{readTime,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

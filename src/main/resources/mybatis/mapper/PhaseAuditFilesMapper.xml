@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.PhaseAuditFilesMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.PhaseAuditFiles" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="phase_audit_id" property="phaseAuditId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, file_path, file_name, user_id, phase_audit_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from phase_audit_files
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from phase_audit_files
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.background.entity.PhaseAuditFiles" >
+    insert into phase_audit_files (id, file_path, file_name, 
+      user_id, phase_audit_id)
+    values (#{id,jdbcType=BIGINT}, #{filePath,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=BIGINT}, #{phaseAuditId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.background.entity.PhaseAuditFiles" >
+    insert into phase_audit_files
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="phaseAuditId != null" >
+        phase_audit_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="phaseAuditId != null" >
+        #{phaseAuditId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.PhaseAuditFiles" >
+    update phase_audit_files
+    <set >
+      <if test="filePath != null" >
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="phaseAuditId != null" >
+        phase_audit_id = #{phaseAuditId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.PhaseAuditFiles" >
+    update phase_audit_files
+    set file_path = #{filePath,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      phase_audit_id = #{phaseAuditId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPhaseAuditId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from phase_audit_files
+    where phase_audit_id = #{phaseAuditId,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByProjectIdAndDesignerId" resultMap="BaseResultMap">
+    SELECT
+    phase_audit_files.id,
+    phase_audit_files.file_path,
+    phase_audit_files.file_name,
+    phase_audit_files.user_id,
+    phase_audit_files.phase_audit_id
+    FROM
+    phase_audit_files
+    INNER JOIN project_phase_audit ON phase_audit_files.phase_audit_id = project_phase_audit.id
+    where project_phase_audit.project_id = #{projectId,jdbcType=BIGINT}
+    and user_id = #{designerId,jdbcType=BIGINT}
+    and project_phase_audit.stage_code = #{stageCode,jdbcType=INTEGER}
+  </select>
+</mapper>

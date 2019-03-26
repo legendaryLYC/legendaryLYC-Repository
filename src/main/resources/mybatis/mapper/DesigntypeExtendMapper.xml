@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.DesigntypeExtendMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.DesigntypeExtend" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from designer_type_extend
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectByUserid" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from designer_type_extend
+    where user_id = #{userid,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByuserid" parameterType="java.lang.Long" >
+    delete from designer_type_extend
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from designer_type_extend
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.background.entity.DesigntypeExtend" >
+    insert into designer_type_extend (id, user_id, code
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.background.entity.DesigntypeExtend" >
+    insert into designer_type_extend
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.DesigntypeExtend" >
+    update designer_type_extend
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.DesigntypeExtend" >
+    update designer_type_extend
+    set user_id = #{userId,jdbcType=BIGINT},
+      code = #{code,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.MoneyDistributionMapper" >
+<resultMap id="BaseResultMap" type="com.design.background.entity.MoneyDistribution">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="water_money" jdbcType="DECIMAL" property="waterMoney" />
+    <result column="warm_money" jdbcType="DECIMAL" property="warmMoney" />
+    <result column="structure_money" jdbcType="DECIMAL" property="structureMoney" />
+    <result column="building_money" jdbcType="DECIMAL" property="buildingMoney" />
+    <result column="electricity_money" jdbcType="DECIMAL" property="electricityMoney" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="stage_code" jdbcType="INTEGER" property="stageCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, water_money, warm_money, structure_money, building_money, electricity_money, 
+    create_time, project_id, stage_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from money_distribution
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from money_distribution
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.background.entity.MoneyDistribution">
+    insert into money_distribution (id, water_money, warm_money,
+      structure_money, building_money, electricity_money,
+      create_time, project_id, stage_code
+      )
+    values (#{id,jdbcType=BIGINT}, #{waterMoney,jdbcType=DECIMAL}, #{warmMoney,jdbcType=DECIMAL},
+      #{structureMoney,jdbcType=DECIMAL}, #{buildingMoney,jdbcType=DECIMAL}, #{electricityMoney,jdbcType=DECIMAL},
+      #{createTime,jdbcType=TIMESTAMP}, #{projectId,jdbcType=BIGINT}, #{stageCode,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.background.entity.MoneyDistribution">
+    insert into money_distribution
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="waterMoney != null">
+        water_money,
+      </if>
+      <if test="warmMoney != null">
+        warm_money,
+      </if>
+      <if test="structureMoney != null">
+        structure_money,
+      </if>
+      <if test="buildingMoney != null">
+        building_money,
+      </if>
+      <if test="electricityMoney != null">
+        electricity_money,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="stageCode != null">
+        stage_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="waterMoney != null">
+        #{waterMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="warmMoney != null">
+        #{warmMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="structureMoney != null">
+        #{structureMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="buildingMoney != null">
+        #{buildingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="electricityMoney != null">
+        #{electricityMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="stageCode != null">
+        #{stageCode,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.MoneyDistribution">
+    update money_distribution
+    <set>
+      <if test="waterMoney != null">
+        water_money = #{waterMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="warmMoney != null">
+        warm_money = #{warmMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="structureMoney != null">
+        structure_money = #{structureMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="buildingMoney != null">
+        building_money = #{buildingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="electricityMoney != null">
+        electricity_money = #{electricityMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="stageCode != null">
+        stage_code = #{stageCode,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.MoneyDistribution">
+    update money_distribution
+    set water_money = #{waterMoney,jdbcType=DECIMAL},
+      warm_money = #{warmMoney,jdbcType=DECIMAL},
+      structure_money = #{structureMoney,jdbcType=DECIMAL},
+      building_money = #{buildingMoney,jdbcType=DECIMAL},
+      electricity_money = #{electricityMoney,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      project_id = #{projectId,jdbcType=BIGINT},
+      stage_code = #{stageCode,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectByProjectId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from money_distribution
+    where project_id = #{projectId,jdbcType=BIGINT}
+  </select>
+    <select id="selectByStage" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from money_distribution
+    where project_id = #{projectId,jdbcType=BIGINT} and stage_code=#{stageCode,jdbcType=INTEGER}
+  </select>
+  <select id="findbyStage" resultMap="BaseResultMap" parameterType="com.design.background.entity.MoneyDistribution">
+    select
+    <include refid="Base_Column_List" />
+    from money_distribution
+    where project_id = #{projectId,jdbcType=BIGINT} and stage_code=#{stageCode,jdbcType=INTEGER}
+  </select>
+  <update id="updateByProjectIdSelective" parameterType="com.design.background.entity.MoneyDistribution" >
+    update money_distribution
+    <set >
+      <if test="waterMoney != null" >
+        water_money = #{waterMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="warmMoney != null" >
+        warm_money = #{warmMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="structureMoney != null" >
+        structure_money = #{structureMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="buildingMoney != null" >
+        building_money = #{buildingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="electricityMoney != null" >
+        electricity_money = #{electricityMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="stageCode != null" >
+        stage_code = #{stageCode,jdbcType=INTEGER},
+      </if>
+    </set>
+    where project_id = #{projectId,jdbcType=BIGINT} and stage_code = #{stageCode,jdbcType=INTEGER}
+  </update>
+</mapper>

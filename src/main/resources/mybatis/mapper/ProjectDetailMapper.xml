@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.ProjectDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.ProjectDetail" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type_code" property="typeCode" jdbcType="INTEGER" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="model_code" property="modelCode" jdbcType="INTEGER" />
+    <result column="project_function" property="projectFunction" jdbcType="VARCHAR" />
+    <result column="stage_code" property="stageCode" jdbcType="INTEGER" />
+    <result column="deadline" property="deadline" jdbcType="TIMESTAMP" />
+    <result column="startup_date" property="startupDate" jdbcType="TIMESTAMP" />
+    <result column="construction_budget" property="constructionBudget" jdbcType="DECIMAL" />
+    <result column="design_budget" property="designBudget" jdbcType="DECIMAL" />
+    <result column="plan_budget" property="planBudget" jdbcType="DECIMAL" />
+    <result column="dispatch_code" property="dispatchCode" jdbcType="INTEGER" />
+    <result column="allow_view" property="allowView" jdbcType="VARCHAR" />
+    <result column="process_code" property="processCode" jdbcType="INTEGER" />
+    <result column="release_time" property="releaseTime" jdbcType="TIMESTAMP" />
+    <result column="page_view" property="pageView" jdbcType="BIGINT" />
+    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="requirements" property="requirements" jdbcType="VARCHAR" />
+    <result column="process_time" property="processTime" jdbcType="TIMESTAMP" />
+    <result column="processor_id" property="processorId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="project_progress" property="projectProgress" jdbcType="INTEGER" />
+    <result column="complete_audting" property="completeAudting" jdbcType="INTEGER" />
+    <result column="is_top" property="isTop" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="construction_period" property="constructionPeriod" jdbcType="INTEGER" />
+    <result column="cover_image" property="coverImage" jdbcType="VARCHAR" />
+    <result column="registration_deadline" property="registrationDeadline" jdbcType="TIMESTAMP" />
+    <result column="component_code" property="componentCode" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ProjectResultMap" type="com.design.background.form.ProjectForm" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type_code" property="typeCode" jdbcType="INTEGER" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="model_code" property="modelCode" jdbcType="INTEGER" />
+    <result column="project_function" property="projectFunction" jdbcType="VARCHAR" />
+    <result column="stage_code" property="stageCode" jdbcType="INTEGER" />
+    <result column="deadline" property="deadline" jdbcType="TIMESTAMP" />
+    <result column="startup_date" property="startupDate" jdbcType="TIMESTAMP" />
+    <result column="construction_budget" property="constructionBudget" jdbcType="DECIMAL" />
+    <result column="design_budget" property="designBudget" jdbcType="DECIMAL" />
+    <result column="plan_budget" property="planBudget" jdbcType="DECIMAL" />
+    <result column="dispatch_code" property="dispatchCode" jdbcType="INTEGER" />
+    <result column="allow_view" property="allowView" jdbcType="VARCHAR" />
+    <result column="process_code" property="processCode" jdbcType="INTEGER" />
+    <result column="release_time" property="releaseTime" jdbcType="TIMESTAMP" />
+    <result column="page_view" property="pageView" jdbcType="BIGINT" />
+    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="requirements" property="requirements" jdbcType="VARCHAR" />
+    <result column="process_time" property="processTime" jdbcType="TIMESTAMP" />
+    <result column="processor_id" property="processorId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="project_progress" property="projectProgress" jdbcType="INTEGER" />
+    <result column="complete_audting" property="completeAudting" jdbcType="INTEGER" />
+    <result column="is_top" property="isTop" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="construction_period" property="constructionPeriod" jdbcType="INTEGER" />
+    <result column="cover_image" property="coverImage" jdbcType="VARCHAR" />
+    <result column="registration_deadline" property="registrationDeadline" jdbcType="TIMESTAMP" />
+    <result column="component_code" property="componentCode" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+
+    <result column="projectType" property="projectType" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+    <result column="stage" property="stage" jdbcType="VARCHAR" />
+    <result column="dispatch" property="dispatch" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="username" property="userName" jdbcType="VARCHAR" />
+    <result column="reviewStatus" property="reviewStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BasicProjectResultMap" type="com.design.background.form.BasicProjectForm" >
+  	<result column="id" property="id" jdbcType="BIGINT" />
+	<result column="name" property="name" jdbcType="VARCHAR" />
+	<result column="construction_period" property="constructionPeriod" jdbcType="INTEGER" />
+	<result column="construction_budget" property="constructionBudget" jdbcType="DECIMAL" />
+	<result column="cover_image" property="coverImage" jdbcType="VARCHAR" />
+	<result column="construction_budget" property="constructionBudget" jdbcType="DECIMAL" />
+	<result column="component_code" property="componentCode" jdbcType="VARCHAR" />
+	<result column="statusCode" property="statusCode" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="MyProjectResultMap" type="com.design.background.model.MyProjectModel" >
+  	<result column="id" property="id" jdbcType="BIGINT" />
+	<result column="name" property="name" jdbcType="VARCHAR" />
+	<result column="typeCode" property="typeCode" jdbcType="INTEGER" />
+	<result column="status" property="status" jdbcType="INTEGER" />
+	<result column="stage" property="stage" jdbcType="VARCHAR" />
+	<result column="deadline" property="deadline" jdbcType="VARCHAR" />
+	<result column="isPhaseAudit" property="isPhaseAudit" jdbcType="INTEGER" />
+	<result column="process_code" property="statusCode" jdbcType="INTEGER" />
+	<result column="stageCode" property="stageCode" jdbcType="INTEGER" />
+	<result column="stageReviewCode" property="stageReviewCode" jdbcType="INTEGER" />
+  </resultMap>
+
+ <resultMap id="ProjectAndProjectorResultMap" type="com.design.background.form.ProjectPayForm"  >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="type_code" property="typeCode" jdbcType="INTEGER" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+  </resultMap>
+
+   <resultMap id="ResultMapWithUser" type="com.design.background.model.StatisticalSearchUserModel"  >
+     <result column="process_code" property="roleCode" jdbcType="INTEGER" />
+     <result column="num" property="num" jdbcType="INTEGER" />
+     <result column="week0" property="week0" jdbcType="INTEGER" />
+     <result column="week1" property="week1" jdbcType="INTEGER" />
+     <result column="week2" property="week2" jdbcType="INTEGER" />
+     <result column="week3" property="week3" jdbcType="INTEGER" />
+     <result column="week4" property="week4" jdbcType="INTEGER" />
+     <result column="week5" property="week5" jdbcType="INTEGER" />
+     <result column="week6" property="week6" jdbcType="INTEGER" />
+   </resultMap>
+   <resultMap id="ResultMapWithUserCount" type="com.design.background.model.StatisticalSearchUserCountModel"  >
+     <result column="username" property="username" jdbcType="VARCHAR" />
+     <result column="balance" property="balance" jdbcType="DECIMAL" />
+     <result column="num" property="num" jdbcType="INTEGER" />
+   </resultMap>
+     <resultMap id="ResultMapWithUserBalance" type="com.design.background.model.StatisticalSearchUserBalanceModel"  >
+     <result column="name" property="name" jdbcType="VARCHAR" />
+     <result column="num" property="num" jdbcType="INTEGER" />
+   </resultMap>
+
+  <sql id="Basic_Project_Column_List" >
+  	project_detail.cover_image,
+	project_detail.construction_period,
+	project_detail.construction_budget,
+	project_detail.`name`,
+	project_detail.component_code,
+	project_detail.process_code AS statusCode,
+	project_detail.id
+  </sql>
+  <sql id="Project_Column_List" >
+    project_detail.id,
+	project_detail.`name`,
+	project_detail.type_code,
+	project_detail.area_id,
+	project_detail.model_code,
+	project_detail.project_function,
+	project_detail.stage_code,
+	project_detail.deadline,
+	project_detail.startup_date,
+	project_detail.construction_budget,
+	project_detail.design_budget,
+	project_detail.plan_budget,
+	project_detail.dispatch_code,
+	project_detail.allow_view,
+	project_detail.process_code,
+	project_detail.release_time,
+	project_detail.page_view,
+	project_detail.introduce,
+	project_detail.remarks,
+	project_detail.requirements,
+	project_detail.process_time,
+	project_detail.processor_id,
+	project_detail.user_id,
+	project_detail.project_progress,
+	project_detail.complete_audting,
+	project_detail.is_top,
+	project_detail.is_delete,
+	project_detail.`construction_period`,
+	project_detail.cover_image,
+	project_detail.registration_deadline,
+	project_detail.component_code,
+	project_detail.create_time,
+	project_detail.city_id,
+	project_detail.province_id,
+
+	dic_project_type.description AS projectType,
+	area.`name` AS area,
+	city.`name` AS city,
+	province.`name` AS province,
+	dic_dispatch.description AS dispatch,
+	dic_project_scale.description AS model,
+	dic_project_stage.description AS stage,
+	dic_project_status.description AS `status`,
+	leading_user.username
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, type_code, area_id, model_code, project_function, stage_code, deadline,
+    startup_date, construction_budget, design_budget, plan_budget, dispatch_code, allow_view, process_code,
+    release_time, page_view, introduce, remarks, requirements, process_time, processor_id,
+    user_id, project_progress, complete_audting, is_top, is_delete, construction_period,
+    project_detail.cover_image, project_detail.registration_deadline, project_detail.component_code,
+    project_detail.create_time, project_detail.city_id, province_id
+  </sql>
+  <sql id="My_Column_List">
+  	project_detail.id,
+  	project_detail.process_code,
+	project_detail.`name`,
+	project_detail.registration_deadline as deadline,
+	project_detail.stage_code AS stageCode,
+	project_detail.type_code as typeCode,
+	dic_project_status.description as `status`,
+	dic_project_stage.description as stage,
+	count_result.isPhaseAudit,
+	project_phase_audit.review_code AS stageReviewCode
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from project_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from project_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.background.entity.ProjectDetail" >
+    insert into project_detail (id, name, type_code,
+      area_id, model_code, project_function,
+      stage_code, deadline, startup_date,
+      construction_budget, design_budget, plan_budget, dispatch_code,
+      allow_view, process_code, release_time,
+      page_view, introduce, remarks,
+      requirements, process_time, processor_id,
+      user_id, project_progress, complete_audting,
+      is_top, is_delete, construction_period, cover_image,
+	  registration_deadline, component_code, create_time,
+	  city_id, province_id)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{typeCode,jdbcType=INTEGER},
+      #{areaId,jdbcType=INTEGER}, #{modelCode,jdbcType=INTEGER}, #{projectFunction,jdbcType=VARCHAR},
+      #{stageCode,jdbcType=INTEGER}, #{deadline,jdbcType=TIMESTAMP}, #{startupDate,jdbcType=TIMESTAMP},
+      #{constructionBudget,jdbcType=DECIMAL}, #{designBudget,jdbcType=DECIMAL}, #{plan_budget,jdbcType=DECIMAL},
+      #{dispatchCode,jdbcType=INTEGER},
+      #{allowView,jdbcType=VARCHAR}, #{processCode,jdbcType=INTEGER}, #{releaseTime,jdbcType=TIMESTAMP},
+      #{pageView,jdbcType=BIGINT}, #{introduce,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR},
+      #{requirements,jdbcType=VARCHAR}, #{processTime,jdbcType=TIMESTAMP}, #{processorId,jdbcType=BIGINT},
+      #{userId,jdbcType=BIGINT}, #{projectProgress,jdbcType=INTEGER}, #{completeAudting,jdbcType=INTEGER},
+      #{isTop,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{constructionPeriod,jdbcType=INTEGER},
+      #{coverImage,jdbcType=VARCHAR}, #{registrationDeadline,jdbcType=TIMESTAMP}, #{componentCode,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{cityId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.background.entity.ProjectDetail" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into project_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="typeCode != null" >
+        type_code,
+      </if>
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="modelCode != null" >
+        model_code,
+      </if>
+      <if test="projectFunction != null" >
+        project_function,
+      </if>
+      <if test="stageCode != null" >
+        stage_code,
+      </if>
+      <if test="deadline != null" >
+        deadline,
+      </if>
+      <if test="startupDate != null" >
+        startup_date,
+      </if>
+      <if test="constructionBudget != null" >
+        construction_budget,
+      </if>
+      <if test="designBudget != null" >
+        design_budget,
+      </if>
+      <if test="planBudget != null" >
+        plan_budget,
+      </if>
+      <if test="dispatchCode != null" >
+        dispatch_code,
+      </if>
+      <if test="allowView != null" >
+        allow_view,
+      </if>
+      <if test="processCode != null" >
+        process_code,
+      </if>
+      <if test="releaseTime != null" >
+        release_time,
+      </if>
+      <if test="pageView != null" >
+        page_view,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="requirements != null" >
+        requirements,
+      </if>
+      <if test="processTime != null" >
+        process_time,
+      </if>
+      <if test="processorId != null" >
+        processor_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="projectProgress != null" >
+        project_progress,
+      </if>
+      <if test="completeAudting != null" >
+        complete_audting,
+      </if>
+      <if test="isTop != null" >
+        is_top,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="constructionPeriod != null" >
+        construction_period,
+      </if>
+      <if test="coverImage != null" >
+        cover_image,
+      </if>
+      <if test="registrationDeadline != null" >
+        registration_deadline,
+      </if>
+      <if test="componentCode != null" >
+        component_code,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null" >
+        #{typeCode,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="modelCode != null" >
+        #{modelCode,jdbcType=INTEGER},
+      </if>
+      <if test="projectFunction != null" >
+        #{projectFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="stageCode != null" >
+        #{stageCode,jdbcType=INTEGER},
+      </if>
+      <if test="deadline != null" >
+        #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startupDate != null" >
+        #{startupDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="constructionBudget != null" >
+        #{constructionBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="designBudget != null" >
+        #{designBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="planBudget != null" >
+        #{planBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="dispatchCode != null" >
+        #{dispatchCode,jdbcType=INTEGER},
+      </if>
+      <if test="allowView != null" >
+        #{allowView,jdbcType=VARCHAR},
+      </if>
+      <if test="processCode != null" >
+        #{processCode,jdbcType=INTEGER},
+      </if>
+      <if test="releaseTime != null" >
+        #{releaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageView != null" >
+        #{pageView,jdbcType=BIGINT},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="requirements != null" >
+        #{requirements,jdbcType=VARCHAR},
+      </if>
+      <if test="processTime != null" >
+        #{processTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processorId != null" >
+        #{processorId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="projectProgress != null" >
+        #{projectProgress,jdbcType=INTEGER},
+      </if>
+      <if test="completeAudting != null" >
+        #{completeAudting,jdbcType=INTEGER},
+      </if>
+      <if test="isTop != null" >
+        #{isTop,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="constructionPeriod != null" >
+        #{constructionPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="coverImage != null" >
+        #{coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationDeadline != null" >
+        #{registrationDeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="componentCode != null" >
+        #{componentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId},
+      </if>
+      <if test="cityId != null" >
+        #{cityId},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.ProjectDetail" >
+    update project_detail
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null" >
+        type_code = #{typeCode,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="modelCode != null" >
+        model_code = #{modelCode,jdbcType=INTEGER},
+      </if>
+      <if test="projectFunction != null" >
+        project_function = #{projectFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="stageCode != null" >
+        stage_code = #{stageCode,jdbcType=INTEGER},
+      </if>
+      <if test="deadline != null" >
+        deadline = #{deadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startupDate != null" >
+        startup_date = #{startupDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="constructionBudget != null" >
+        construction_budget = #{constructionBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="designBudget != null" >
+        design_budget = #{designBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="planBudget != null" >
+        plan_budget = #{planBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="dispatchCode != null" >
+        dispatch_code = #{dispatchCode,jdbcType=INTEGER},
+      </if>
+      <if test="allowView != null" >
+        allow_view = #{allowView,jdbcType=VARCHAR},
+      </if>
+      <if test="processCode != null" >
+        process_code = #{processCode,jdbcType=INTEGER},
+      </if>
+      <if test="releaseTime != null" >
+        release_time = #{releaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageView != null" >
+        page_view = #{pageView,jdbcType=BIGINT},
+      </if>
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="requirements != null" >
+        requirements = #{requirements,jdbcType=VARCHAR},
+      </if>
+      <if test="processTime != null" >
+        process_time = #{processTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processorId != null" >
+        processor_id = #{processorId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="projectProgress != null" >
+        project_progress = #{projectProgress,jdbcType=INTEGER},
+      </if>
+      <if test="completeAudting != null" >
+        complete_audting = #{completeAudting,jdbcType=INTEGER},
+      </if>
+      <if test="isTop != null" >
+        is_top = #{isTop,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="constructionPeriod != null" >
+        construction_period = #{constructionPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="coverImage != null" >
+        cover_image = #{coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationDeadline != null" >
+        registration_deadline = #{registrationDeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="componentCode != null" >
+        component_code = #{componentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId},
+      </if>
+      <if test="provinceId != null" >
+        city_id = #{cityId}
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.ProjectDetail" >
+    update project_detail
+    set name = #{name,jdbcType=VARCHAR},
+      type_code = #{typeCode,jdbcType=INTEGER},
+      area_id = #{areaId,jdbcType=INTEGER},
+      model_code = #{modelCode,jdbcType=INTEGER},
+      project_function = #{projectFunction,jdbcType=VARCHAR},
+      stage_code = #{stageCode,jdbcType=INTEGER},
+      deadline = #{deadline,jdbcType=TIMESTAMP},
+      startup_date = #{startupDate,jdbcType=TIMESTAMP},
+      construction_budget = #{constructionBudget,jdbcType=DECIMAL},
+      design_budget = #{designBudget,jdbcType=DECIMAL},
+      plan_budget = #{planBudget,jdbcType=DECIMAL},
+      dispatch_code = #{dispatchCode,jdbcType=INTEGER},
+      allow_view = #{allowView,jdbcType=VARCHAR},
+      process_code = #{processCode,jdbcType=INTEGER},
+      release_time = #{releaseTime,jdbcType=TIMESTAMP},
+      page_view = #{pageView,jdbcType=BIGINT},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      requirements = #{requirements,jdbcType=VARCHAR},
+      process_time = #{processTime,jdbcType=TIMESTAMP},
+      processor_id = #{processorId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      project_progress = #{projectProgress,jdbcType=INTEGER},
+      complete_audting = #{completeAudting,jdbcType=INTEGER},
+      is_top = #{isTop,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      construction_period = #{constructionPeriod,jdbcType=INTEGER},
+      cover_image = #{coverImage,jdbcType=VARCHAR},
+      registration_deadline = #{registrationDeadline,jdbcType=TIMESTAMP},
+      component_code = #{componentCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      city_id = #{cityId,jdbcType=INTEGER},
+      province_id = #{provinceId,jdbcType=INTEGER},
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectProjectsSelective" resultMap="ProjectResultMap" parameterType="com.design.background.entity.ProjectDetail" >
+    select
+    <include refid="Project_Column_List" />,dic_review_status.description AS reviewStatus
+    from project_detail
+		LEFT JOIN dic_project_type ON project_detail.type_code = dic_project_type.`code`
+		LEFT JOIN area ON project_detail.area_id = area.area_id
+	    LEFT JOIN city ON project_detail.city_id = city.city_id
+	    LEFT JOIN province ON project_detail.province_id = province.province_id
+		LEFT JOIN dic_dispatch ON project_detail.dispatch_code = dic_dispatch.`code`
+		LEFT JOIN dic_project_scale ON project_detail.model_code = dic_project_scale.`code`
+		LEFT JOIN dic_project_stage ON project_detail.stage_code = dic_project_stage.`code`
+		LEFT JOIN dic_project_status ON project_detail.process_code = dic_project_status.`code`
+		LEFT JOIN leading_user ON project_detail.user_id = leading_user.id
+		LEFT JOIN project_phase_audit 
+			ON (project_phase_audit.project_id = project_detail.id AND project_phase_audit.stage_code = project_detail.stage_code)
+		LEFT JOIN dic_review_status ON dic_review_status.`code` = project_phase_audit.review_code
+    <where>
+		<if test="projectDetail.id != null " >
+	        project_detail.id = #{projectDetail.id}
+	    </if>
+	    <if test="projectDetail.name != null " >
+	        and project_detail.name like '%${projectDetail.name}%'
+	    </if>
+	    <if test="projectDetail.releaseTime != null" >
+	        and project_detail.release_time = #{projectDetail.releaseTime,jdbcType=TIMESTAMP}
+	    </if>
+	    <if test="projectDetail.modelCode != null" >
+	        and project_detail.model_code = #{projectDetail.modelCode}
+	    </if>
+	    <if test="projectDetail.processCode != null" >
+	        and project_detail.process_code = #{projectDetail.processCode}
+	    </if>
+	    <if test="projectDetail.isDelete != null" >
+	        and project_detail.is_delete = #{projectDetail.isDelete}
+	    </if>
+	      <if test="projectDetail.completeAudting != null" >
+	        and  project_detail.complete_audting = #{projectDetail.completeAudting}
+	    </if>
+	    <if test="from != null">
+		    <![CDATA[   and DATE_FORMAT(project_detail.create_time, '%Y-%m-%d') >=  #{from}   ]]>
+		</if>
+		<if test="to != null">
+		    <![CDATA[  and DATE_FORMAT(project_detail.create_time, '%Y-%m-%d') <= #{to}    ]]>
+		</if>
+	</where>
+	order by is_top desc,project_detail.id desc
+  </select>
+  <select id="selectBasicProjectsSelective" resultMap="BasicProjectResultMap">
+    select
+    <include refid="Basic_Project_Column_List" />
+    from project_detail
+	<if test="screeningConditions.component != null" >
+		LEFT JOIN (select designer_relationship.project_id from designer_relationship
+				   where designer_relationship.type_code = #{screeningConditions.component}
+	        			and designer_relationship.is_selected = 1) D
+	    ON D.project_id = project_detail.id
+	</if>
+	<where>
+		<if test="projectDetail.id != null " >
+	        project_detail.id = #{projectDetail.id}
+	    </if>
+	    <if test="projectDetail.isDelete != null " >
+	        and project_detail.is_delete = #{projectDetail.isDelete}
+	    </if>
+	    <if test="projectDetail.completeAudting != null  " >
+	        and  project_detail.complete_audting = #{projectDetail.completeAudting}
+	    </if>
+	    <if test="projectDetail.modelCode != null" >
+	        and project_detail.model_code = #{projectDetail.modelCode}
+	    </if>
+	    <if test="projectDetail.typeCode != null" >
+	        and project_detail.type_code = #{projectDetail.typeCode}
+	    </if>
+	    <if test="projectDetail.stageCode != null" >
+	        and project_detail.stage_code = #{projectDetail.stageCode}
+	    </if>
+	    <if test="screeningConditions.cityId != null">
+			and project_detail.city_id = #{screeningConditions.cityId}
+		</if>
+	    <if test="statuses != null and statuses.length >0">
+			<foreach collection="statuses" item="status" separator="," open=" and project_detail.process_code in (" close=")">
+				#{status}
+			</foreach>
+		</if>
+		<if test="screeningConditions.constructionBudgetFrom != null" >
+	        and project_detail.construction_budget &gt;= #{screeningConditions.constructionBudgetFrom}*10000
+	    </if>
+	    <if test="screeningConditions.constructionBudgetTo != null" >
+	        and project_detail.construction_budget &lt;= #{screeningConditions.constructionBudgetTo}*10000
+	    </if>
+	    <if test="screeningConditions.constructionPeriodFrom != null" >
+	        and project_detail.construction_period &gt;= #{screeningConditions.constructionPeriodFrom}*30
+	    </if>
+	    <if test="screeningConditions.constructionPeriodTo != null" >
+	        and project_detail.construction_period &lt;= #{screeningConditions.constructionPeriodTo}*30
+	    </if>
+	    <if test="screeningConditions.component != null" >
+	        and project_detail.component_code like '%${screeningConditions.component}%' 
+	        and D.project_id IS NULL
+	    </if>
+	</where>
+	order by is_top desc,project_detail.id desc
+  </select>
+  <select id="selectProjectFormById" resultMap="ProjectResultMap" parameterType="com.design.background.entity.ProjectDetail" >
+    select
+    <include refid="Project_Column_List" />
+    from project_detail
+    LEFT JOIN dic_project_type ON project_detail.type_code = dic_project_type.`code`
+    LEFT JOIN area ON project_detail.area_id = area.area_id
+    LEFT JOIN city ON project_detail.city_id = city.city_id
+    LEFT JOIN province ON project_detail.province_id = province.province_id
+    LEFT JOIN dic_dispatch ON project_detail.dispatch_code = dic_dispatch.`code`
+    LEFT JOIN dic_project_scale ON project_detail.model_code = dic_project_scale.`code`
+    LEFT JOIN dic_project_stage ON project_detail.stage_code = dic_project_stage.`code`
+    LEFT JOIN dic_project_status ON project_detail.process_code = dic_project_status.`code`
+    LEFT JOIN leading_user ON project_detail.user_id = leading_user.id
+    <where>
+      <if test="projectDetail.id != null " >
+        project_detail.id = #{projectDetail.id}
+      </if>
+    </where>
+  </select>
+  
+   <select id="selectByUserId" resultMap="MyProjectResultMap">
+    SELECT
+    <include refid="My_Column_List" />
+	FROM
+	project_detail
+	INNER JOIN dic_project_status ON project_detail.process_code = dic_project_status.`code`
+	INNER JOIN dic_project_stage ON project_detail.stage_code = dic_project_stage.`code`
+	LEFT JOIN (SELECT project_id AS isPhaseAudit
+				FROM project_phase_audit LEFT JOIN project_detail ON project_detail.id = project_phase_audit.project_id
+				WHERE review_code =1000) AS count_result ON count_result.isPhaseAudit = project_detail.id
+	LEFT JOIN project_phase_audit ON 
+				(project_detail.id = project_phase_audit.project_id and project_phase_audit.stage_code = project_detail.stage_code)
+	
+	where user_id = #{userId}  
+	<if test="typeCode != null and typeCode != ''" >
+		and project_detail.type_code = #{typeCode} 
+	</if>
+	<if test="processCode != null and processCode != ''" >
+		and project_detail.process_code = #{processCode} 
+	</if>
+	<if test="name != null and name != ''" >
+		and project_detail.name like '%${name}%' 
+	</if>
+	order by project_detail.create_time desc
+  </select>
+  
+  <select id="selectCounts" resultType="java.lang.Integer">
+    SELECT count(*)
+	FROM
+	project_detail
+	where user_id = #{userId}
+  </select>
+  
+  
+     <select id="selectStatisticalProjectAllTime" resultMap="ResultMapWithUser">
+   SELECT process_code,COUNT(1) AS num
+	FROM project_detail
+	WHERE process_code <![CDATA[ >= ]]> 1004
+	GROUP BY process_code
+  </select>
+    <select id="selectStatisticalProjectOneWeek" resultMap="ResultMapWithUser">
+     SELECT process_code,COUNT(1) AS num
+	FROM project_detail
+	WHERE   DATE(SUBDATE(CURDATE(),DATE_FORMAT(CURDATE(),'%w')-1))   <![CDATA[ <= ]]> release_time AND release_time <![CDATA[ <= ]]> DATE(CURDATE()) AND process_code <![CDATA[ >= ]]> 1004
+	GROUP BY process_code 
+  </select>
+   <select id="selectStatisticalProjectOneMonth" resultMap="ResultMapWithUser">
+     SELECT process_code,COUNT(1) AS num
+	FROM project_detail
+	WHERE   DATE_FORMAT( release_time, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' ) AND process_code <![CDATA[ >= ]]> 1004
+	GROUP BY process_code 
+  </select>
+     <select id="selectStatisticalProjectTopCity" resultMap="ResultMapWithUserBalance">
+		SELECT
+				city.`name`,count(1) as num
+		FROM
+				project_detail
+				INNER JOIN area ON project_detail.area_id = area.area_id
+				INNER JOIN city ON area.city_id = city.city_id
+		WHERE
+		project_detail.process_code = 1006
+		GROUP BY
+				city.`name`
+		order  by  num DESC
+		limit 10
+
+  	</select>
+     <select id="selectStatisticalProjectTopBalance" resultMap="ResultMapWithUserCount">
+		SELECT
+		leading_user.username,
+		count(1) AS num
+		FROM
+		designer_relationship
+		INNER JOIN project_detail ON designer_relationship.project_id = project_detail.id
+		INNER JOIN leading_user ON designer_relationship.user_id = leading_user.id
+		WHERE
+		project_detail.process_code = 1006 AND
+		designer_relationship.is_selected = 1
+		GROUP BY
+		leading_user.username
+		order by num desc
+		limit 10
+  </select>
+  		<!-- 该方法传7为上星期一，传1为上星期天 -->
+      <select id="selectStatisticalProjectLastweek" resultMap="ResultMapWithUser" parameterType="java.util.List">
+        SELECT project_detail.process_code as process_code,
+        <foreach collection="list" index="index" item="item" >
+          sum(case when project_detail.release_time >= #{item.startTime}  and project_detail.release_time &lt;= #{item.endTime} then 1 else 0 end )as week${index}
+          <if test="index != (list.size() - 1)">
+            ,
+          </if>
+        </foreach>
+        FROM project_detail RIGHT join dic_project_status on project_detail.process_code = dic_project_status.code  where dic_project_status.`code`in('1004','1005','1006')
+        GROUP BY dic_project_status.code ORDER BY dic_project_status.code
+  	</select>
+  		<!-- 该方法传0为这星期一，传6为这星期天 -->
+  	<select id="selectStatisticalProjectThisweek" resultMap="ResultMapWithUser" parameterType="java.util.List">
+      SELECT project_detail.process_code as process_code,
+      <foreach collection="list" index="index" item="item" >
+        sum(case when project_detail.release_time >= #{item.startTime}  and project_detail.release_time &lt;= #{item.endTime} then 1 else 0 end )as week${index}
+        <if test="index != (list.size() - 1)">
+          ,
+        </if>
+      </foreach>
+      FROM project_detail RIGHT join dic_project_status on project_detail.process_code = dic_project_status.code  where dic_project_status.`code`in('1004','1005','1006')
+      GROUP BY dic_project_status.code ORDER BY dic_project_status.code
+  	</select>
+  	  	<select id="selectStatisticalAllCaptial" resultType="java.math.BigDecimal" > 
+	       SELECT
+			SUM(construction_budget)
+			FROM
+			project_detail
+			WHERE process_code <![CDATA[ >= ]]> 1004
+  		</select>
+  		<select id="selectStatisticalMonthCaptial" resultType="java.math.BigDecimal" > 
+	       SELECT
+			SUM(construction_budget)
+			FROM
+			project_detail
+			WHERE  DATE_FORMAT( release_time, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' ) AND process_code <![CDATA[ >= ]]> 1004
+  		</select>
+  		<select id="selectStatisticalLastWeekCaptial" resultType="java.util.Map" parameterType="java.util.List">
+          SELECT
+          <foreach collection="list" index="index" item="item" >
+          sum(case when release_time >= #{item.startTime}  and release_time &lt;= #{item.endTime} then construction_budget else 0 end )week${index}
+          <if test="index != (list.size() - 1)">
+            ,
+          </if>
+          </foreach>
+          FROM project_detail where process_code >='1004'
+        </select>
+  		<select id="selectStatisticalThisWeekCaptial" resultType="java.util.Map" parameterType="java.util.List">
+          SELECT
+          <foreach collection="list" index="index" item="item" >
+          sum(case when release_time >= #{item.startTime}  and release_time &lt;= #{item.endTime} then construction_budget else 0 end )week${index}
+          <if test="index != (list.size() - 1)">
+            ,
+          </if>
+          </foreach>
+          FROM project_detail where process_code >='1004'
+  		</select>
+</mapper>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.FeedbackMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.Feedback" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="feedback_user_id" property="feedbackUserId" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="submit_time" property="submitTime" jdbcType="DATE" />
+    <result column="process_time" property="processTime" jdbcType="DATE" />
+    <result column="processor_id" property="processorId" jdbcType="BIGINT" />
+    <result column="username" property="userName" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.design.background.entity.FeedbackWithBLOBs" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="reply" property="reply" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, feedback_user_id, title, submit_time, process_time, processor_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    content, reply
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    feedback_management.id, feedback_management.feedback_user_id, feedback_management.title, feedback_management.submit_time, feedback_management.process_time, feedback_management.processor_id,feedback_management.content, feedback_management.reply
+    ,leading_user.username,leading_user.tel
+    from feedback_management
+    left join leading_user on leading_user.id = feedback_management.feedback_user_id
+    where feedback_management.id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectAllFeedback" resultMap="ResultMapWithBLOBs">
+    select
+    feedback_management.id, feedback_management.feedback_user_id, feedback_management.title, feedback_management.submit_time, feedback_management.process_time, feedback_management.processor_id,feedback_management.content, feedback_management.reply
+    ,leading_user.username,leading_user.tel
+    from feedback_management
+    left join leading_user on leading_user.id = feedback_management.feedback_user_id
+    where 1=1
+    <if test="feedbackTitle != null and feedbackTitle !=''" >
+      and feedback_management.title like '%${feedbackTitle}%'
+    </if>
+    <if test="start != null" >
+      <![CDATA[and feedback_management.submit_time >= #{start} ]]>
+    </if>
+    <if test="end != null" >
+      <![CDATA[and feedback_management.submit_time <= #{end} ]]>
+    </if>
+    <if test="handleStart != null" >
+      <![CDATA[and feedback_management.process_time >= #{handleStart} ]]>
+    </if>
+    <if test="handleEnd != null" >
+      <![CDATA[and feedback_management.process_time <= #{handleEnd} ]]>
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from feedback_management
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.background.entity.FeedbackWithBLOBs" >
+    insert into feedback_management (id, feedback_user_id, title, 
+      submit_time, process_time, processor_id, 
+      content, reply)
+    values (#{id,jdbcType=BIGINT}, #{feedbackUserId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+      #{submitTime,jdbcType=DATE}, #{processTime,jdbcType=DATE}, #{processorId,jdbcType=BIGINT}, 
+      #{content,jdbcType=LONGVARCHAR}, #{reply,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.background.entity.FeedbackWithBLOBs" >
+    insert into feedback_management
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="feedbackUserId != null" >
+        feedback_user_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="submitTime != null" >
+        submit_time,
+      </if>
+      <if test="processTime != null" >
+        process_time,
+      </if>
+      <if test="processorId != null" >
+        processor_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="reply != null" >
+        reply,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="feedbackUserId != null" >
+        #{feedbackUserId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=DATE},
+      </if>
+      <if test="processTime != null" >
+        #{processTime,jdbcType=DATE},
+      </if>
+      <if test="processorId != null" >
+        #{processorId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reply != null" >
+        #{reply,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.FeedbackWithBLOBs" >
+    update feedback_management
+    <set >
+      <if test="feedbackUserId != null" >
+        feedback_user_id = #{feedbackUserId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="submitTime != null" >
+        submit_time = #{submitTime,jdbcType=DATE},
+      </if>
+      <if test="processTime != null" >
+        process_time = #{processTime,jdbcType=DATE},
+      </if>
+      <if test="processorId != null" >
+        processor_id = #{processorId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reply != null" >
+        reply = #{reply,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.design.background.entity.FeedbackWithBLOBs" >
+    update feedback_management
+    set feedback_user_id = #{feedbackUserId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      submit_time = #{submitTime,jdbcType=DATE},
+      process_time = #{processTime,jdbcType=DATE},
+      processor_id = #{processorId,jdbcType=BIGINT},
+      content = #{content,jdbcType=LONGVARCHAR},
+      reply = #{reply,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.Feedback" >
+    update feedback_management
+    set feedback_user_id = #{feedbackUserId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      submit_time = #{submitTime,jdbcType=DATE},
+      process_time = #{processTime,jdbcType=DATE},
+      processor_id = #{processorId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

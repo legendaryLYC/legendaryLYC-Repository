@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.NotificationManageMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.NotificationManage" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="accept_user" property="acceptUser" jdbcType="VARCHAR" />
+    <result column="notify_type" property="notifyType" jdbcType="VARCHAR" />
+    <result column="sender" property="sender" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="isAll" property="isall" jdbcType="INTEGER" />
+     <result column="message" property="message" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, accept_user, notify_type, sender, title, creat_time, isAll
+  </sql>
+  <sql id="Blob_Column_List" >
+    message
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from notification_manage
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+	<!-- 通过acceptUser查询消息 -->
+  <select id="selectByacceptUser" resultMap="BaseResultMap">
+    select * from notification_manage
+    where isAll = 1 or (accept_user = #{acceptUser,jdbcType=VARCHAR} and isAll = 0) or (accept_user = #{acceptUser,jdbcType=VARCHAR} and isAll = 2)
+    order by creat_time desc
+  </select>
+
+
+  <select id="selectByacceptUserAndTime" resultMap="BaseResultMap">
+    select * from notification_manage
+    where (isAll = 1 or (accept_user = #{acceptUser,jdbcType=VARCHAR} and isAll = 0) or (accept_user = #{acceptUser,jdbcType=VARCHAR} and isAll = 2))
+    <![CDATA[ and creat_time >= #{date} ]]>
+    order by creat_time desc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from notification_manage
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.background.entity.NotificationManage" >
+    insert into notification_manage (id, accept_user, notify_type, 
+      sender, title, creat_time, 
+      isAll, message)
+    values (#{id,jdbcType=BIGINT}, #{acceptUser,jdbcType=VARCHAR}, #{notifyType,jdbcType=VARCHAR}, 
+      #{sender,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, 
+      #{isall,jdbcType=INTEGER}, #{message,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.background.entity.NotificationManage" >
+    insert into notification_manage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="acceptUser != null" >
+        accept_user,
+      </if>
+      <if test="notifyType != null" >
+        notify_type,
+      </if>
+      <if test="sender != null" >
+        sender,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="isall != null" >
+        isAll,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="acceptUser != null" >
+        #{acceptUser,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyType != null" >
+        #{notifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null" >
+        #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isall != null" >
+        #{isall,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.NotificationManage" >
+    update notification_manage
+    <set >
+      <if test="acceptUser != null" >
+        accept_user = #{acceptUser,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyType != null" >
+        notify_type = #{notifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null" >
+        sender = #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isall != null" >
+        isAll = #{isall,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.design.background.entity.NotificationManage" >
+    update notification_manage
+    set accept_user = #{acceptUser,jdbcType=VARCHAR},
+      notify_type = #{notifyType,jdbcType=VARCHAR},
+      sender = #{sender,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      isAll = #{isall,jdbcType=INTEGER},
+      message = #{message,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.NotificationManage" >
+    update notification_manage
+    set accept_user = #{acceptUser,jdbcType=VARCHAR},
+      notify_type = #{notifyType,jdbcType=VARCHAR},
+      sender = #{sender,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      isAll = #{isall,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <insert id="insertSelectiveForm" parameterType="com.design.background.form.MessageForm" >
+    insert into notification_manage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="acceptUser != null" >
+        accept_user,
+      </if>
+      <if test="notifyType != null" >
+        notify_type,
+      </if>
+      <if test="sender != null" >
+        sender,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="isall != null" >
+        isAll,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="acceptUser != null" >
+        #{acceptUser,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyType != null" >
+        #{notifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null" >
+        #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isall != null" >
+        #{isall,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+    <select id="selectByIsAll"  resultMap="BaseResultMap"  parameterType="com.design.background.entity.NotificationManage" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from notification_manage
+    where
+    (isAll = 1 or isAll = 2)
+      <if test="title != '' and title != null " >
+        and title like '%${title}%'
+      </if>
+      <if test="notifyType != '' and notifyType != null" >
+        and notify_type =  #{notifyType,jdbcType=VARCHAR}
+      </if> 
+      <if test="sender != '' and sender != null" >
+        and sender like  '%${sender}%'
+      </if>
+  </select>
+  
+      <select id="selectByConditions"  resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from notification_manage
+    where 1 = 1 
+        <if test="id != null" >
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="acceptUser != null" >
+        and acceptUser = #{acceptUser,jdbcType=VARCHAR}
+      </if>
+      <if test="notifyType != null" >
+        and notifyType = #{notifyType,jdbcType=VARCHAR}
+      </if>
+      <if test="sender != null" >
+        and sender = #{sender,jdbcType=VARCHAR}
+      </if>
+      <if test="title != null" >
+       and title =  #{title,jdbcType=VARCHAR}
+      </if>
+      <if test="creatTime != null" >
+       and creatTime =  #{creatTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="isall != null" >
+       and isall = #{isall,jdbcType=INTEGER}
+      </if>
+      <if test="message != null" >
+       and message =   #{message,jdbcType=LONGVARCHAR}
+      </if>
+  </select>
+</mapper>

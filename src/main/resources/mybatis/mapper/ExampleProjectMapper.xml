@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.ExampleProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.ExampleProject" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="designer_name" property="designerName" jdbcType="VARCHAR" />
+    <result column="projecter_name" property="projecterName" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="cover_image" property="coverImage" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.design.background.entity.ExampleProject" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <resultMap id="JoinResultMap" type="com.design.background.entity.ExampleProject" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="designer_name" property="designerName" jdbcType="VARCHAR" />
+    <result column="projecter_name" property="projecterName" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, project_id, designer_name, projecter_name, project_name, create_time, user_id,cover_image
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <sql id="Join_Column_List" >
+    project_example.id, project_example.project_id, project_example.designer_name, project_example.projecter_name, project_example.project_name, project_example.create_time, project_example.user_id, sys_user.username
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from project_example
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectExample" resultMap="JoinResultMap">
+    select
+    <include refid="Join_Column_List" />
+    from project_example left outer join sys_user on project_example.user_id = sys_user.id
+  </select>
+
+  <select id="selectSomeExample" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from project_example
+  </select>
+
+  <select id="selectClassicExample" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from project_example
+  </select>
+
+  <select id="selectNewExample" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from project_example order by create_time desc limit #{startNum},#{size}
+  </select>
+
+  <select id="selectExampleName" resultMap="BaseResultMap">
+    select
+    <include refid="Join_Column_List" />
+    from project_example
+    left outer join sys_user on project_example.user_id = sys_user.id
+    where 1=1
+    <if test="exampleName != null and exampleName !=''" >
+    and project_example.project_name like '%${exampleName}%'
+    </if>
+    <if test="startDate != null" >
+      <![CDATA[and project_example.create_time >= #{startDate} ]]>
+    </if>
+    <if test="endDate != null" >
+      <![CDATA[and project_example.create_time <= #{endDate} ]]>
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from project_example
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.background.entity.ExampleProject" >
+    insert into project_example (id, project_id, designer_name, 
+      projecter_name, project_name, create_time, 
+      user_id, content)
+    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{designerName,jdbcType=VARCHAR}, 
+      #{projecterName,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.background.entity.ExampleProject" >
+    insert into project_example
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="designerName != null" >
+        designer_name,
+      </if>
+      <if test="projecterName != null" >
+        projecter_name,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="coverImage != null" >
+        cover_image,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="designerName != null" >
+        #{designerName,jdbcType=VARCHAR},
+      </if>
+      <if test="projecterName != null" >
+        #{projecterName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="coverImage != null" >
+        #{coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.ExampleProject" >
+    update project_example
+    <set >
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="designerName != null" >
+        designer_name = #{designerName,jdbcType=VARCHAR},
+      </if>
+      <if test="projecterName != null" >
+        projecter_name = #{projecterName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="coverImage != null" >
+        cover_image = #{coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.design.background.entity.ExampleProject" >
+    update project_example
+    set project_id = #{projectId,jdbcType=BIGINT},
+      designer_name = #{designerName,jdbcType=VARCHAR},
+      projecter_name = #{projecterName,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=BIGINT},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.ExampleProject" >
+    update project_example
+    set project_id = #{projectId,jdbcType=BIGINT},
+      designer_name = #{designerName,jdbcType=VARCHAR},
+      projecter_name = #{projecterName,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

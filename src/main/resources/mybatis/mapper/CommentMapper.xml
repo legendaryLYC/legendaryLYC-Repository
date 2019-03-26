@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.Comment" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="type_code" property="typeCode" jdbcType="INTEGER" />
+    <result column="process_code" property="processCode" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="submit_time" property="submitTime" jdbcType="TIMESTAMP" />
+    <result column="process_time" property="processTime" jdbcType="TIMESTAMP" />
+    <result column="processor_id" property="processorId" jdbcType="BIGINT" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="auditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="projectName" property="projectName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, project_id, content, type_code, process_code, user_id, submit_time, process_time,
+    processor_id
+  </sql>
+  <sql id="Comment_Column_List" >
+    project_detail.`name` AS projectName,
+    `comment`.id as id,
+    `comment`.content as content,
+    `comment`.submit_time,
+    `comment`.process_code,
+    `comment`.type_code,
+    leading_user.username as userName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from comment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.background.entity.Comment" >
+    insert into comment (id, project_id, content, 
+      type_code, process_code, user_id, 
+      submit_time, process_time, processor_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, 
+      #{typeCode,jdbcType=INTEGER}, #{processCode,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, 
+      #{submitTime,jdbcType=TIMESTAMP}, #{processTime,jdbcType=TIMESTAMP}, #{processorId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.background.entity.Comment" >
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="typeCode != null" >
+        type_code,
+      </if>
+      <if test="processCode != null" >
+        process_code,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="submitTime != null" >
+        submit_time,
+      </if>
+      <if test="processTime != null" >
+        process_time,
+      </if>
+      <if test="processorId != null" >
+        processor_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null" >
+        #{typeCode,jdbcType=INTEGER},
+      </if>
+      <if test="processCode != null" >
+        #{processCode,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processTime != null" >
+        #{processTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processorId != null" >
+        #{processorId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.Comment" >
+    update comment
+    <set >
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null" >
+        type_code = #{typeCode,jdbcType=INTEGER},
+      </if>
+      <if test="processCode != null" >
+        process_code = #{processCode,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="submitTime != null" >
+        submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processTime != null" >
+        process_time = #{processTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processorId != null" >
+        processor_id = #{processorId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.Comment" >
+    update comment
+    set project_id = #{projectId,jdbcType=BIGINT},
+      content = #{content,jdbcType=VARCHAR},
+      type_code = #{typeCode,jdbcType=INTEGER},
+      process_code = #{processCode,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
+      submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      process_time = #{processTime,jdbcType=TIMESTAMP},
+      processor_id = #{processorId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Comment_Column_List" />
+    from comment
+    INNER JOIN project_detail ON `comment`.project_id = project_detail.id
+    INNER JOIN leading_user ON `comment`.user_id = leading_user.id
+    where 1 = 1 and comment.process_code is null
+    <if test="projectName != null and projectName !=  ''" >
+     and project_detail.`name` like '%${projectName}%'
+    </if>
+  </select>
+
+  <sql id="Record_Column_List" >
+    project_detail.`name` as projectName,
+  `comment`.id,
+  sys_user.username as auditName,
+  leading_user.username as userName,
+  `comment`.process_code,
+  `comment`.submit_time,
+  `comment`.process_time,
+  `comment`.content,
+  `comment`.type_code
+  </sql>
+  <select id="selectAllRecord" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT
+    <include refid="Record_Column_List" />
+    FROM
+    `comment`
+    INNER JOIN leading_user ON `comment`.user_id = leading_user.id
+    INNER JOIN project_detail ON `comment`.project_id = project_detail.id
+    INNER JOIN sys_user ON `comment`.processor_id = sys_user.id
+    and comment.process_code is not null
+  </select>
+
+
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Comment_Column_List" />
+    from comment
+    INNER JOIN project_detail ON `comment`.project_id = project_detail.id
+    INNER JOIN leading_user ON `comment`.user_id = leading_user.id
+    where 1 = 1
+    and comment.process_code is null
+    and comment.id = #{id}
+  </select>
+</mapper>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.ProjectPhaseAuditMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.ProjectPhaseAudit" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="stage_code" property="stageCode" jdbcType="INTEGER" />
+    <result column="review_code" property="reviewCode" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="FormResultMap" type="com.design.background.form.ProjectPhaseAuditForm" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="stage_code" property="stageCode" jdbcType="INTEGER" />
+    <result column="review_code" property="reviewCode" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    <result column="stage" property="stage" jdbcType="VARCHAR" />
+    <result column="reviewStatus" property="reviewStatus" jdbcType="VARCHAR" />
+    <result column="projectName" property="projectName" jdbcType="VARCHAR" />
+    
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, project_id, stage_code, review_code, create_time, update_time
+  </sql>
+  <sql id="Form_Column_List" >
+  	project_phase_audit.project_id,
+	project_phase_audit.review_code,
+	project_phase_audit.create_time,
+	project_phase_audit.update_time,
+	project_detail.`name` AS projectName,
+	project_detail.stage_code,
+	dic_review_status.description AS reviewStatus,
+	dic_project_stage.description AS stage,
+	project_phase_audit.id
+  </sql>
+  
+  <sql id="FormRecord_Column_List" >
+  	project_phase_audit.project_id,
+	project_phase_audit.review_code,
+	project_phase_audit.create_time,
+	project_phase_audit.update_time,
+	project_detail.`name` AS projectName,
+	project_phase_audit.stage_code,
+	dic_review_status.description AS reviewStatus,
+	dic_project_stage.description AS stage,
+	project_phase_audit.id
+  </sql>
+
+  <sql id="Stage_Column_List" >
+    project_phase_audit.id,
+    project_phase_audit.stage_code,
+    project_phase_audit.project_id,
+    project_phase_audit.review_code,
+    project_phase_audit.create_time,
+    project_phase_audit.update_time,
+    dic_project_stage.description AS stage
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from project_phase_audit
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByProjectIdAndStageCode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from project_phase_audit
+    where stage_code = #{stageCode}
+    and project_id = #{projectId}
+  </select>
+
+
+  <select id="selectStageByProjectId" resultMap="FormResultMap">
+    SELECT
+    dic_project_stage.description as stage,
+    project_detail.stage_code
+    FROM
+    project_detail
+    INNER JOIN dic_project_stage ON project_detail.stage_code = dic_project_stage.`code`
+    where project_detail.id = #{projectId}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from project_phase_audit
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.background.entity.ProjectPhaseAudit" >
+    insert into project_phase_audit (id, project_id, stage_code, 
+      review_code, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{stageCode,jdbcType=INTEGER}, 
+      #{reviewCode,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.background.entity.ProjectPhaseAudit" >
+    insert into project_phase_audit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="stageCode != null" >
+        stage_code,
+      </if>
+      <if test="reviewCode != null" >
+        review_code,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="stageCode != null" >
+        #{stageCode,jdbcType=INTEGER},
+      </if>
+      <if test="reviewCode != null" >
+        #{reviewCode,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insertSelectiveAndReturnId" parameterType="com.design.background.entity.ProjectPhaseAudit" useGeneratedKeys="true" keyProperty="id">
+    insert into project_phase_audit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="stageCode != null" >
+        stage_code,
+      </if>
+      <if test="reviewCode != null" >
+        review_code,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="stageCode != null" >
+        #{stageCode,jdbcType=INTEGER},
+      </if>
+      <if test="reviewCode != null" >
+        #{reviewCode,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.ProjectPhaseAudit" >
+    update project_phase_audit
+    <set>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="stageCode != null" >
+        stage_code = #{stageCode,jdbcType=INTEGER},
+      </if>
+      <if test="reviewCode != null" >
+        review_code = #{reviewCode,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.ProjectPhaseAudit" >
+    update project_phase_audit
+    set project_id = #{projectId,jdbcType=BIGINT},
+      stage_code = #{stageCode,jdbcType=INTEGER},
+      review_code = #{reviewCode,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectPhaseAudits" resultMap="FormResultMap" parameterType="com.design.background.form.ProjectPhaseAuditForm" >
+    select 
+    <include refid="FormRecord_Column_List" />
+    from project_phase_audit
+		INNER JOIN project_detail ON project_phase_audit.project_id = project_detail.id
+		INNER JOIN dic_review_status ON project_phase_audit.review_code = dic_review_status.`code`
+		INNER JOIN dic_project_stage ON project_detail.stage_code = dic_project_stage.`code`
+	<where>
+		<if test="projectId != null " >
+	        project_phase_audit.project_id like '%${projectId}%'
+	    </if>
+	    <if test="projectName != null " >
+	        and project_detail.name like '%${projectName}%'
+	    </if>
+	    <if test="stageCode != null" >
+	        and project_phase_audit.stage_code = #{stageCode}
+	    </if>
+	    <if test="reviewCode != null" >
+	        and project_phase_audit.review_code = #{reviewCode}
+	    </if>
+	</where>
+	order by project_phase_audit.project_id desc
+  </select>
+  <select id="selectPhaseAuditByProjectId" resultMap="FormResultMap" >
+    select 
+    <include refid="Form_Column_List" />
+    from project_phase_audit
+		INNER JOIN project_detail ON project_phase_audit.project_id = project_detail.id
+		INNER JOIN dic_review_status ON project_phase_audit.review_code = dic_review_status.`code`
+		INNER JOIN dic_project_stage ON project_detail.stage_code = dic_project_stage.`code`
+	where 
+		project_phase_audit.project_id = #{projectId} and project_phase_audit.review_code = 1000
+  </select>
+  <select id="selectByProjectId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from project_phase_audit
+    where project_id = #{projectId} 
+    order by create_time desc limit 1
+  </select>
+</mapper>

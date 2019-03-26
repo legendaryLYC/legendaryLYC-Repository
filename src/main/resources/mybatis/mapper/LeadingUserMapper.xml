@@ -1,0 +1,819 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.design.background.mapper.LeadingUserMapper" >
+  <resultMap id="BaseResultMap" type="com.design.background.entity.LeadingUser" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="common_address" property="commonAddress" jdbcType="VARCHAR" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="INTEGER" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="sex_type" property="sexType" jdbcType="INTEGER" />
+    <result column="qualify_score" property="qualifyScore" jdbcType="DECIMAL" />
+    <result column="role_code" property="roleCode" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="com.design.background.form.MyAccountForm" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+     <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="pay_amount" property="payAmount" jdbcType="DECIMAL" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+  </resultMap>
+    <resultMap id="ProjectorResultMap" type="com.design.background.form.ProjectorForm" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="common_address" property="commonAddress" jdbcType="VARCHAR" />
+     <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="sex_type" property="sexType" jdbcType="INTEGER" />
+    <result column="qualify_score" property="qualifyScore" jdbcType="DECIMAL" />
+    <result column="role_code" property="roleCode" jdbcType="INTEGER" />
+    <result column="city_id" property="cityId" jdbcType="VARCHAR" />
+    <result column="province_id" property="provinceId" jdbcType="VARCHAR" />
+    <result column="pro" property="provinceId" jdbcType="VARCHAR" />
+    <result column="provincename" property="provincename" jdbcType="VARCHAR" />
+    <result column="areaname" property="areaname" jdbcType="VARCHAR" />
+    <result column="cityname" property="cityname" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  
+  <resultMap id="DesignerResultMap" type="com.design.background.form.DesignerForm" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="sex_type" property="sexType" jdbcType="INTEGER" />
+    <result column="qualify_score" property="qualifyScore" jdbcType="DECIMAL" />
+    <result column="role_code" property="roleCode" jdbcType="INTEGER" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="common_address" property="commonAddress" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+  <result column="aptitude" property="aptitude" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="provincename" property="provincename" jdbcType="VARCHAR" />
+    <result column="areaname" property="areaname" jdbcType="VARCHAR" />
+    <result column="cityname" property="cityname" jdbcType="VARCHAR" />
+  </resultMap>
+	
+  <resultMap id="ResultMapWithBLOBs" type="com.design.background.entity.LeadingUser" extends="BaseResultMap" >
+    <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  
+  
+ 
+ 
+  <resultMap id="ProjectAndProjectorResultMap" type="com.design.background.form.ProjectPayForm"  >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="type_code" property="typeCode" jdbcType="INTEGER" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+  </resultMap>
+   <resultMap id="ResultMapWithUser" type="com.design.background.model.StatisticalSearchUserModel"  >
+     <result column="role_code" property="roleCode" jdbcType="INTEGER" />
+     <result column="num" property="num" jdbcType="INTEGER" />
+     <result column="week0" property="week0" jdbcType="INTEGER" />
+     <result column="week1" property="week1" jdbcType="INTEGER" />
+     <result column="week2" property="week2" jdbcType="INTEGER" />
+     <result column="week3" property="week3" jdbcType="INTEGER" />
+     <result column="week4" property="week4" jdbcType="INTEGER" />
+     <result column="week5" property="week5" jdbcType="INTEGER" />
+     <result column="week6" property="week6" jdbcType="INTEGER" />
+
+   </resultMap>
+   <resultMap id="ResultMapWithUserCount" type="com.design.background.model.StatisticalSearchUserCountModel" >
+     <result column="username" property="username" jdbcType="VARCHAR" />
+     <result column="balance" property="balance" jdbcType="DECIMAL" />
+   </resultMap>  
+     <resultMap id="ResultMapWithUserBalance" type="com.design.background.model.StatisticalSearchUserBalanceModel" >
+     <result column="name" property="name" jdbcType="VARCHAR" />
+     <result column="num" property="num" jdbcType="INTEGER" />
+   </resultMap>  
+   
+   <resultMap id="AreaMap" type="com.design.background.model.AreaModel" >
+     <result column="provinceName" property="provinceName" jdbcType="VARCHAR" />
+     <result column="provinceId" property="provinceId" jdbcType="INTEGER" />
+     <result column="cityName" property="cityName" jdbcType="VARCHAR" />
+     <result column="cityId" property="cityId" jdbcType="INTEGER" />
+     <result column="areaName" property="areaName" jdbcType="VARCHAR" />
+     <result column="areaId" property="areaId" jdbcType="INTEGER" />
+   </resultMap> 
+
+ <sql id="Base_Column_List3" >
+	 project_detail.id,
+	 designer_relationship.user_id,
+	 designer_relationship.type_code,
+	 user_account.balance
+  </sql>
+  <sql id="Area_Column_List" >
+	 province.`name` AS provinceName,
+	city.`name` AS cityName,
+	area.`name` AS areaName,
+	leading_user.area AS areaId,
+	leading_user.city_id AS cityId,
+	leading_user.province_id AS provinceId
+  </sql>
+  <sql id="Base_Column_List" >
+    id, tel, email, common_address,introduction, nickname, photo, area, city_id, province_id,
+    create_time, password, update_time, 
+    username, sex_type, qualify_score, role_code
+  </sql>
+  <sql id="Base_Column_List2" >
+    leading_user.id, leading_user.tel, user_account.user_id, user_account.name, user_account.pay_amount, user_account.balance
+  </sql>
+  <sql id="Blob_Column_List" >
+    introduction
+  </sql>
+  
+  <sql id="Projector_Column_List">
+leading_user.id,
+leading_user.tel,
+leading_user.email,
+leading_user.common_address,
+leading_user.introduction,
+leading_user.nickname,
+leading_user.photo,
+leading_user.area,
+leading_user.create_time,
+leading_user.`password`,
+leading_user.update_time,
+leading_user.username,
+leading_user.sex_type,
+leading_user.qualify_score,
+leading_user.role_code,
+area.city_id,
+city.province_id,
+area.`name` AS areaname,
+city.`name` AS cityname,
+province.`name` AS provincename
+  </sql>
+  
+  <sql id="Designer_Column_List">
+	leading_user.id,
+	leading_user.create_time,
+	leading_user.password,
+	leading_user.update_time,
+	leading_user.username,
+	leading_user.sex_type,
+	leading_user.qualify_score,
+	leading_user.role_code,
+	leading_user.tel,
+	leading_user.email,
+	leading_user.common_address,
+	leading_user.introduction,
+	leading_user.nickname,
+	leading_user.photo,
+	leading_user.aptitude,
+	leading_user.area,
+	dic_project_component.code,
+	dic_project_component.description,
+	designer_type_extend.code,
+	designer_type_extend.user_id
+	
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from leading_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  
+  <select id="selectUserAreaById" resultMap="ProjectorResultMap" >
+  
+   select
+  <include refid="Projector_Column_List"/>
+    FROM
+	leading_user
+	INNER JOIN area ON leading_user.area = area.area_id
+	INNER JOIN city ON area.city_id = city.city_id
+	INNER JOIN province ON city.province_id = province.province_id
+
+    where leading_user.id = #{userId} and area = #{areaId}
+  </select>
+  
+	<!-- 获取全部设计师 -->
+	<select id="selectAlldesigner" resultMap="DesignerResultMap" parameterType="java.lang.Long" >
+		SELECT
+		<include refid="Designer_Column_List" />
+		FROM
+		leading_user
+		INNER JOIN designer_type_extend ON leading_user.id =
+		designer_type_extend.user_id
+		INNER JOIN dic_project_component ON designer_type_extend.code =
+		dic_project_component.code
+		where role_code = 1001
+	</select>
+	  <!--通过姓名模糊查询设计师 -->
+	<select id="selectdesignerByname" resultMap="DesignerResultMap" parameterType="java.lang.Long" >
+		SELECT
+		<include refid="Designer_Column_List" />
+		FROM
+		leading_user
+		INNER JOIN designer_type_extend ON leading_user.id =
+		designer_type_extend.user_id
+		INNER JOIN dic_project_component ON designer_type_extend.code =
+		dic_project_component.code
+		where username like '%${username}%' and role_code = 1001
+	</select>
+	
+	<!-- 获取全部设计师 -->
+  <select id="selectAll" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    SELECT * FROM leading_user where role_code = 1001
+  </select>
+  
+  <!--通过id获取设计师-->
+	<select id="selectdesignerById" resultMap="DesignerResultMap" parameterType="java.lang.Long" >
+		SELECT
+		<include refid="Designer_Column_List" />
+		FROM
+		leading_user
+		INNER JOIN designer_type_extend ON leading_user.id =
+		designer_type_extend.user_id
+		INNER JOIN dic_project_component ON designer_type_extend.code =
+		dic_project_component.code
+		where leading_user.id = #{id,jdbcType=BIGINT}
+	</select>
+
+
+  <!--通过id获取设计师-->
+  <select id="finddesignerById" resultMap="DesignerResultMap" parameterType="java.lang.Long" >
+    SELECT
+    leading_user.id,
+	leading_user.create_time,
+	leading_user. PASSWORD,
+	leading_user.update_time,
+	leading_user.username,
+	leading_user.sex_type,
+	leading_user.qualify_score,
+	leading_user.role_code,
+	leading_user.tel,
+	leading_user.email,
+	leading_user.common_address,
+	leading_user.introduction,
+	leading_user.nickname,
+	leading_user.photo,
+	leading_user.area,
+
+	designer_type_extend. CODE as designerTypeCode,
+	designer_type_extend.user_id
+    FROM
+    leading_user
+    INNER JOIN designer_type_extend ON leading_user.id =
+    designer_type_extend.user_id
+    where leading_user.id = #{id,jdbcType=BIGINT}
+  </select>
+
+   <select id="select" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from leading_user
+    where role_code = 1002
+    <if test="_parameter != null and  _parameter!= '' ">
+      and username like   concat('%',#{0},'%')
+    </if>
+  </select>
+  
+  
+  
+  <!-- 根据project_id查询该项目所涉及的设计师以及各自对应的类别 -->
+  <select id="selectprojectdetails" resultMap="ProjectAndProjectorResultMap" parameterType="java.lang.Long">
+	 SELECT
+	   <include refid="Base_Column_List3" />
+		FROM
+		project_detail
+		INNER JOIN designer_relationship ON project_detail.id = designer_relationship.project_id
+		INNER JOIN user_account ON designer_relationship.user_id = user_account.user_id
+		where project_detail.id=#{projectId} and (designer_relationship.is_selected=1 or designer_relationship.is_selected=3)
+  </select>
+  
+  
+  
+  
+  
+  <!-- 根据手机号查询用户信息 -->
+  <select id="selectByTel" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from leading_user
+    where tel = #{tel,jdbcType=VARCHAR}
+  </select>
+  <!-- 根据手机号查询用户信息 -->
+  <select id="selectCountByTel"  resultType="java.lang.Integer" parameterType="java.lang.String">
+  	select 
+  	count(*)
+    from leading_user
+    where tel = #{tel,jdbcType=VARCHAR}
+  </select>
+    <!-- 根据邮箱查询用户信息 -->
+  <select id="selectCountByEmail"  resultType="java.lang.Integer" parameterType="java.lang.String">
+  	select 
+  	count(*)
+    from leading_user
+    where email = #{email,jdbcType=VARCHAR}
+  </select>
+  <select id="selectById" resultMap="BaseResultMap2"   >
+  SELECT
+	leading_user.id,
+	leading_user.tel,
+	leading_user.username,
+	user_account.user_id,
+	leading_user.username as `name`,
+	user_account.pay_amount,
+	user_account.balance,
+	user_account.extract
+	FROM
+	leading_user
+	INNER JOIN user_account ON leading_user.id = user_account.user_id
+    where leading_user.id = #{id,jdbcType=BIGINT}
+  </select>       
+  <!-- 根据邮箱号查询用户信息 -->
+  <select id="selectByMail" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from leading_user
+    where email = #{email,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from leading_user
+    where 1 = 1
+    <if test="_parameter != null ">
+      and username  = #{0}
+    </if>
+  </select>
+   <select id="selectLast" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from leading
+    order by id DESC limit 1
+  </select>  
+  <select id="selectUser" resultMap="BaseResultMap" 	>
+  		select
+  		<include refid="Base_Column_List" />
+  		from leading_user
+  		where  tel=#{tel} and password=#{password}  
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from leading_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.design.background.entity.LeadingUser" >
+    insert into leading_user (id, tel, email, 
+      common_address, nickname, photo, 
+      area, city_id, province_id,
+      create_time, password, 
+      update_time, username, sex_type, 
+      qualify_score, role_code, introduction
+      )
+    values (#{id,jdbcType=BIGINT}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{commonAddress,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
+      #{area,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, #{sexType,jdbcType=INTEGER}, 
+      #{qualifyScore,jdbcType=DECIMAL}, #{roleCode,jdbcType=INTEGER}, #{introduction,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertreturnId" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.design.background.entity.LeadingUser" >
+    insert into leading_user (id, tel, email, 
+      common_address, nickname, photo, 
+      area, city_id, province_id, create_time, password, 
+      update_time, username, sex_type, 
+      qualify_score, role_code, introduction,aptitude
+      )
+    values (#{id,jdbcType=BIGINT}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+      #{commonAddress,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR},
+      #{area,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR},
+      #{updateTime,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, #{sexType,jdbcType=INTEGER},
+      #{qualifyScore,jdbcType=DECIMAL}, #{roleCode,jdbcType=INTEGER}, #{introduction,jdbcType=LONGVARCHAR},#{aptitude,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.design.background.entity.LeadingUser" >
+    insert into leading_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="commonAddress != null" >
+        common_address,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="sexType != null" >
+        sex_type,
+      </if>
+      <if test="qualifyScore != null" >
+        qualify_score,
+      </if>
+      <if test="roleCode != null" >
+        role_code,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="commonAddress != null" >
+        #{commonAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sexType != null" >
+        #{sexType,jdbcType=INTEGER},
+      </if>
+      <if test="qualifyScore != null" >
+        #{qualifyScore,jdbcType=DECIMAL},
+      </if>
+      <if test="roleCode != null" >
+        #{roleCode,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.background.entity.LeadingUser" >
+    update leading_user
+    <set >
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="commonAddress != null" >
+        common_address = #{commonAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null" >
+        area = #{area,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sexType != null" >
+        sex_type = #{sexType,jdbcType=INTEGER},
+      </if>
+      <if test="qualifyScore != null" >
+        qualify_score = #{qualifyScore,jdbcType=DECIMAL},
+      </if>
+      <if test="roleCode != null" >
+        role_code = #{roleCode,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.design.background.entity.LeadingUser" >
+    update leading_user
+    set tel = #{tel,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      common_address = #{commonAddress,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      area = #{area,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      password = #{password,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      username = #{username,jdbcType=VARCHAR},
+      sex_type = #{sexType,jdbcType=INTEGER},
+      qualify_score = #{qualifyScore,jdbcType=DECIMAL},
+      role_code = #{roleCode,jdbcType=INTEGER},
+      introduction = #{introduction,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.background.entity.LeadingUser" >
+    update leading_user
+    set tel = #{tel,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      common_address = #{commonAddress,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      area = #{area,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      password = #{password,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      username = #{username,jdbcType=VARCHAR},
+      sex_type = #{sexType,jdbcType=INTEGER},
+      qualify_score = #{qualifyScore,jdbcType=DECIMAL},
+      role_code = #{roleCode,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <insert id="insertProjectUser" parameterType="com.design.background.form.ProjectLoginForm" >
+    insert into leading_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="commonAddress != null" >
+        common_address,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="sexType != null" >
+        sex_type,
+      </if>
+      <if test="qualifyScore != null" >
+        qualify_score,
+      </if>
+      <if test="roleCode != null" >
+        role_code,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="commonAddress != null" >
+        #{commonAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sexType != null" >
+        #{sexType,jdbcType=INTEGER},
+      </if>
+      <if test="qualifyScore != null" >
+        #{qualifyScore,jdbcType=DECIMAL},
+      </if>
+      <if test="roleCode != null" >
+        #{roleCode,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectDesignerByPhone" resultMap="DesignerResultMap">
+  select
+    <include refid="Designer_Column_List" />
+    FROM
+    leading_user
+    INNER JOIN designer_type_extend on designer_type_extend.user_id = leading_user.id
+  	INNER JOIN dic_project_component on dic_project_component.code = designer_type_extend.code
+  	where leading_user.tel like '%${phone}%' and dic_project_component.code = #{typeCode}
+  </select>
+  <select id="selectDesignerByNum" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    FROM
+    leading_user
+    where tel = #{phone}
+  </select>
+  
+  
+   <select id="selectStatisticalUserAllTime" resultMap="ResultMapWithUser">
+   SELECT dic_role.code as role_code,COUNT(1) AS num
+	FROM leading_user RIGHT JOIN dic_role on leading_user.role_code = dic_role.code
+	GROUP BY dic_role.code ORDER BY dic_role.code
+  </select>
+    <select id="selectStatisticalUserOneWeek" resultMap="ResultMapWithUser">
+     SELECT role_code,COUNT(1) AS num
+	FROM leading_user
+	WHERE   DATE(SUBDATE(CURDATE(),DATE_FORMAT(CURDATE(),'%w')-1))   <![CDATA[ <= ]]> create_time AND create_time <![CDATA[ <= ]]> DATE(CURDATE())
+	GROUP BY role_code 
+  </select>
+   <select id="selectStatisticalUserOneMonth" resultMap="ResultMapWithUser">
+     SELECT role_code,COUNT(1) AS num
+	FROM leading_user
+	WHERE   DATE_FORMAT( create_time, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' ) 
+	GROUP BY role_code 
+  </select>
+     <select id="selectStatisticalUserTopCity" resultMap="ResultMapWithUserBalance">
+		SELECT
+		city.`name`,count(1) as num
+		FROM
+		leading_user
+		INNER JOIN area ON leading_user.area = area.area_id
+		INNER JOIN city ON area.city_id = city.city_id
+		GROUP BY
+		city.`name`
+		order  by  num DESC limit 10
+  	</select>
+     <select id="selectStatisticalUserTopBalance" resultMap="ResultMapWithUserCount">
+		SELECT
+		leading_user.username,
+		user_account.balance
+		FROM
+		leading_user
+		INNER JOIN user_account ON leading_user.id = user_account.user_id
+		order by user_account.balance desc
+		limit 10
+  </select>
+  		<!-- 该方法传7为上星期一，传1为上星期天 -->
+      <select id="selectStatisticalUserLastWeek" resultMap="ResultMapWithUser" parameterType="java.util.List">
+		SELECT dic_role.code as role_code,
+        <foreach collection="list" index="index" item="item" >
+          sum(case when  leading_user.create_time >= #{item.startTime}  and leading_user.create_time &lt;= #{item.endTime} then 1 else 0 end )as week${index}
+          <if test="index != (list.size() - 1)">
+            ,
+          </if>
+        </foreach>
+        FROM leading_user RIGHT join dic_role on leading_user.role_code = dic_role.code   GROUP BY dic_role.code ORDER BY dic_role.code
+      </select>
+  		<!-- 该方法传0为这星期一，传6为这星期天 -->
+  	<select id="selectStatisticalUserThisWeek" resultMap="ResultMapWithUser" parameterType="java.lang.Integer"> 
+      SELECT dic_role.code as role_code,
+      <foreach collection="list" index="index" item="item" >
+        sum(case when leading_user.create_time >= #{item.startTime}  and leading_user.create_time &lt;= #{item.endTime} then 1 else 0 end )as week${index}
+        <if test="index != (list.size() - 1)">
+          ,
+        </if>
+      </foreach>
+      FROM leading_user RIGHT join dic_role on leading_user.role_code = dic_role.code   GROUP BY dic_role.code ORDER BY dic_role.code
+  	</select>
+  	<select id="selectAreaModelByUserId" resultMap="AreaMap" parameterType="java.lang.Long" >
+    select 
+    	<include refid="Area_Column_List" />
+    from leading_user
+		LEFT JOIN province ON province.province_id = leading_user.province_id
+		LEFT JOIN city ON city.city_id = leading_user.city_id
+		LEFT JOIN area ON area.area_id = leading_user.area
+    where leading_user.id = #{id,jdbcType=BIGINT}
+  </select>
+</mapper>
